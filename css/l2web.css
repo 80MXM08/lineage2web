@@ -1,0 +1,273 @@
+#debug-bar {
+    -moz-transition: bottom 0.13s ease-in-out 0s;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 990;
+    cursor: pointer;
+}
+#debug-bar-bar-container {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 1px 0;
+    box-shadow: 0 4px 5px #444444;
+    color: #000000;
+    position: relative;
+}
+#debug-bar-bar {
+    height: 44px;
+    line-height: 44px;
+}
+#debug-bar-content {
+    height: auto;
+    background-color: white;
+}
+
+
+.debug-bar-group {
+    height: 44px;
+    line-height: 44px;
+    padding: 0 8px;
+    position: relative;
+    color: #008000;
+    font-weight: bold;
+}
+.yt_button
+{
+    text-shadow:0 1px 0 #fff;
+        font-weight: bold;
+    height: 2.95em;
+    padding: 0 0.91em;
+    
+    border:1px solid #ccc;
+    border-bottom-color:#aaa;
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,EndColorStr=#e0e0e0);
+    background-image:-moz-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image:-ms-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image:-o-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#fff),color-stop(100%,#e0e0e0));
+    background-image:-webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+    background-image:linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    border-radius:15px;
+    -moz-box-shadow:inset 0 0 1px #fff;
+    -ms-box-shadow:inset 0 0 1px #fff;
+    -o-box-shadow:inset 0 0 1px #fff;
+    -webkit-box-shadow:inset 0 0 1px #fff;
+    box-shadow:inset 0 0 1px #fff
+}
+.yt_button:hover
+{
+    border-color:#999;
+    background:#f3f3f3;
+    background-image:-moz-linear-gradient(top,#ffffff,#ebebeb);
+    background-image:-webkit-gradient(linear,left top,left bottom,from(#ffffff),to(#ebebeb));
+    filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr=#ffffff,endColorStr=#ebebeb);
+    outline:0;-moz-box-shadow:0 0 3px #999;
+    -webkit-box-shadow:0 0 3px #999;box-shadow:0 0 3px #999;
+    
+}
+
+.holding input
+{
+    border:none!important;
+    -webkit-box-shadow:0 -1px 0 rgba(0,0,0,.3),inset 0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 -1px 0 rgba(0,0,0,.3),inset 0 1px 2px rgba(0,0,0,.2);box-shadow:0 -1px 0 rgba(0,0,0,.3),inset 0 1px 2px rgba(0,0,0,.2);
+    background-color:white;
+    color:#567792;
+    opacity:.7;
+    -webkit-transition:opacity 1s;-moz-transition:opacity 1s;-o-transition:opacity 1s;
+}
+.holding:hover, .holding:focus input
+{
+    opacity:.9;-webkit-box-shadow:0 -1px 0 rgba(0,0,0,.4),inset 0 1px 2px rgba(0,0,0,.3);-moz-box-shadow:0 -1px 0 rgba(0,0,0,.4),inset 0 1px 2px rgba(0,0,0,.3);box-shadow:0 -1px 0 rgba(0,0,0,.4),inset 0 1px 2px rgba(0,0,0,.3);
+}
+.mysql_debug
+{
+    background-color: #C1E8F1;
+    color: #000000;
+}
+.mysql_debug:hover
+{
+    background-color: #505050;
+    color: #FFFFFF;
+}
+img
+{
+    border: none;
+}
+.newsImg {
+max-width: 360px;
+height: auto !important;
+width: expression(this.width > 360 ? 360: true);
+}
+div#ss
+{
+    background: url(../img/ss/ssbg.png) no-repeat;
+    width:569px;
+    height:225px;
+    margin:auto;
+}
+#ssStatus
+{
+    float: left;
+    font-size: 12px;
+    left: 57px;
+    position: relative;
+    top: 25px;
+    width: 141px;
+}
+#ssTimeImg
+{
+    background: url(../img/ss/time/time1.jpg) no-repeat;
+    width:140px;
+    height:139px;
+    left: 57px;
+    position: relative;
+    top: 62px;
+}
+#ssTime
+{
+    background: none repeat scroll 0 0 #606D6F;
+    height: 27px;
+    left: 300px;
+    position: relative;
+    top: -120px;
+    width: 200px;
+    font-size: 11px;
+}
+#ssTime2
+{
+    padding-top: 6px;
+}
+#ssDawn
+{
+    height: 27px;
+    left: 300px;
+    position: relative;
+    top: -120px;
+    width: 250px;
+    text-align:left;
+    color:#000;
+    margin-top:20px;
+    font-size: 11px;
+}
+#ssDawnImg
+{
+    width:0px;
+    height:9px;
+}
+#ssTwilight
+{
+    height: 27px;
+    left: 300px;
+    position: relative;
+    top: -120px;
+    width: 250px;
+    text-align:left;
+    color:#000;
+    font-size: 11px;
+}
+#ssTwilightImg
+{
+    width: 0px;
+    height: 9px;
+}
+#ssSeals
+{
+    position: relative;
+    left: 300px;
+    top: -125px;
+}
+#ssAvarice
+{
+    width:85px;
+    height:86px;
+    float:left;
+}
+#ssGnosis
+{
+    width:85px;
+    height:86px;
+    float:left;
+}
+#ssStrife
+{
+    width:85px;
+    height:86px;
+    float:left;
+}
+.ele_full
+{
+    height: 12px;
+    width: 235px; 
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+}
+.ele_half
+{
+    height: 12px;
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+}
+.ele_half_t
+{
+    width: 235px;
+    color: #FFFFFF;
+}
+ .element {
+      border-radius: 5px; /* (height of inner div) / 2 + padding */
+      width: 175px;
+    }
+    
+    .element > div {
+       /*width: 50%;  Adjust with JavaScript */
+       height: 5px;
+       border-radius: 5px;
+    }
+#inventory{width:310px;height:408px;margin:5px;background:url('../img/inventory/inventory.png');vertical-align:top;background-position:left top;background-repeat:no-repeat;padding:0px;border:1px solid transparent;}
+#inventory_items{margin:67px 0px 0px 20px;width:268px;height:288px;overflow:auto;position:relative;padding:1px 0px 0px 2px;background:url(../img/inventory/line.gif);background-repeat:repeat-y;background-attachment:scroll;}
+img.floated{float:left;position:relative;padding:0px 4px 4px 0px;width:32px;height:32px;}
+.clearfloat{clear:both;height:0px;line-height:0px;visibility:hidden;}
+#inventory_items .scrollgeneric{line-height:1px;font-size:1px;position:absolute;top:0;left:0;}
+#inventory_items .vscrollerbase{width:15px;background-color:white;}
+#inventory_items .vscrollerbar{width:15px;background-color:black;}
+#inventory_items .vscrollerbar{background:#99CBCB url(../img/inventory/basebarcaps.png) -15px 0px repeat-y;}
+#inventory_items .vscrollerbar{padding:15px;z-index:2;}
+#inventory_items .vscrollerbarbeg{background:url(../img/inventory/basebarcaps.png) -45px 0px no-repeat;width:15px;height:15px !important;}
+#inventory_items .vscrollerbarend{background:url(../img/inventory/basebarcaps.png) -45px -30px no-repeat;width:15px;height:15px;}
+#inventory_items .vscrollerbase{background:#D7EBDF url(../img/inventory/basebarcaps.png) 0px 0px repeat-y;}
+#inventory_items .vscrollerbasebeg{background:url(../img/inventory/basebarcaps.png) -30px 0px no-repeat;width:15px;height:15px !important;}
+#inventory_items .vscrollerbaseend{background:url(../img/inventory/basebarcaps.png) -30px -30px no-repeat;height:15px;width:15px;}
+#inventory_items .scrollerjogbox:hover{background:#5E828C url(../img/inventory/basebarcaps.png) -45px -15px;}
+#paperdoll{width:310px;height:291px;margin:5px;background:url(../img/inventory/paperdoll.png);vertical-align:top;background-position:left top;background-repeat:no-repeat;padding:0px;border:1px solid transparent;}
+#paperdoll_items{margin:75px 0px 0px 30px;width:245px;height:149px;position:relative;}
+#paperdoll #item{position:absolute;width:32px;height:32px;padding:0px;}
+#paperdoll .hidden{display:none;}
+#paperdoll .lefthair{margin-left:0px;margin-top:0px;}
+#paperdoll .helmet{margin-left:39px;margin-top:0px;}
+#paperdoll .righthair{margin-left:78px;margin-top:0px;}
+#paperdoll .dress{margin-left:0px;margin-top:38px;}
+#paperdoll .top{margin-left:39px;margin-top:38px;}
+#paperdoll .cloak{margin-left:78px;margin-top:38px;}
+#paperdoll .gloves{margin-left:0px;margin-top:76px;}
+#paperdoll .lower{margin-left:39px;margin-top:76px;}
+#paperdoll .bots{margin-left:78px;margin-top:76px;}
+#paperdoll .weapon{margin-left:0px;margin-top:114px;}
+#paperdoll .shield{margin-left:78px;margin-top:114px;}
+#paperdoll .leftearring{margin-left:132px;margin-top:0px;}
+#paperdoll .necklace{margin-left:171px;margin-top:0px;}
+#paperdoll .rightearring{margin-left:210px;margin-top:0px;}
+#paperdoll .leftring{margin-left:132px;margin-top:38px;}
+#paperdoll .ring{margin-left:171px;margin-top:38px;}
+#paperdoll .rightring{margin-left:210px;margin-top:38px;}
+#paperdoll .braslet{margin-left:132px;margin-top:88px;}
+#paperdoll .belt{margin-left:39px;margin-top:114px;}
+div.floated{float:left;position:relative;padding:0px 4px 4px 0px;width:32px;height:32px;}
+.clearfloat{clear:both;height:0px;line-height:0px;visibility:hidden;}
