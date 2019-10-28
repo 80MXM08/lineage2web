@@ -1,19 +1,15 @@
 <?php
-if(!defined('CORE'))
-{
-	header("Location: ../index.php");
-	exit();
+
+if (!defined('CORE')) {
+    header('Location: ../index.php');
+    exit();
 }
-$cachefile = 'blocks/donate';
-if(Cache::check($cachefile))
-{
-	$content = TplParser::parse('blocks/donate', $Lang, true);
-	Cache::update($content);
-	global $content;
+$page = 'bDonate';
+$pars = null;
+if (html::check($page, $pars)) {
+    $content = tpl::parse('blocks/donate', null, true);
+    html::update($page, $pars, $content);
+} else {
+    $content = html::get($page, $pars);
 }
-else
-{
-	$content = Cache::get();
-	global $content;
-}
-?>
+global $content;

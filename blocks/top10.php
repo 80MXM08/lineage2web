@@ -1,40 +1,36 @@
 <?php
-if(!defined('CORE'))
+if (!defined('CORE'))
 {
-	header("Location: ../index.php");
-	exit();
+    header("Location: ../index.php");
+    exit();
 }
-$cachefile = 'blocks/top10';
-if(Cache::check($cachefile))
+$page	 = 'bTop10';
+$pars	 = null;
+if (html::check($page, $pars))
 {
-	$content = '';
-	foreach($GS as $slist)
+    $parse = null;
+    foreach ($GS as $slist)
+    {
+	$parse['server_name']	 = $slist['name'];
+	$parse['rows']		 = '';
+	$n			 = 1;
+
+	foreach (DAO::get()::Char()::getTOPChars($slist['id']) as $r)
 	{
-		$parse['server_name'] = $slist['name'];
-
-		$topchar = $sql[SQL_NEXT_ID+$slist['id']]->query('TOP_CHAR_LIST', array("limit" => Config::get('settings', 'TOP', '10')));
-		$n = 1;
-		$parse['rows'] = '';
-		while ($top = SQL::fetchArray())
-		{
-			$row_parse['nr'] = $n;
-			$row_parse['charId'] = $top['charId'];
-			$row_parse['sex'] = ($top['sex'] == 0) ? 'male' : 'female';
-			$row_parse['char_name'] = $top['char_name'];
-			$row_parse['serv_id'] = $slist['id'];
-			$parse['rows'] .= TplParser::parse($cachefile . '_row', $row_parse, true);
-			$n++;
-		}
-
-		$content .= TplParser::parse($cachefile, $parse, true);
-
+	    $parse1=null;
+	    $parse1['nr']		 = $n++;
+	    $parse1['charId']		 = $r['charId'];
+	    $parse1['sex']		 = ($r['sex'] == 0) ? 'male' : 'female';
+	    $parse1['char_name']	 = $r['char_name'];
+	    $parse1['serv_id']		 = $slist['id'];
+	    $parse['rows']		 .= tpl::parse('blocks/top10_row', $parse1);
 	}
-	Cache::update($content);
-	global $content;
+    }
+    $content = tpl::parse('blocks/top10', $parse);
+    html::update($page, $pars, $content);
 }
 else
 {
-	$content = Cache::get();
-	global $content;
+    $content = html::get($page, $pars);
 }
-?>
+global $content;
