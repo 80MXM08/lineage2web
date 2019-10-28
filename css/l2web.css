@@ -1,3 +1,7 @@
+.debug
+{
+    width: 100%;
+}
 #debug-bar {
     -moz-transition: bottom 0.13s ease-in-out 0s;
     bottom: 0px;
@@ -27,6 +31,9 @@
 #debug-bar-content {
     height: auto;
     background-color: white;
+    color: #008000;
+    overflow-y: scroll;
+    max-height: 400px;
 }
 
 
@@ -41,10 +48,10 @@
 .yt_button
 {
     text-shadow:0 1px 0 #fff;
-        font-weight: bold;
+    font-weight: bold;
     height: 2.95em;
     padding: 0 0.91em;
-    
+
     border:1px solid #ccc;
     border-bottom-color:#aaa;
     filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,EndColorStr=#e0e0e0);
@@ -72,7 +79,7 @@
     filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr=#ffffff,endColorStr=#ebebeb);
     outline:0;-moz-box-shadow:0 0 3px #999;
     -webkit-box-shadow:0 0 3px #999;box-shadow:0 0 3px #999;
-    
+
 }
 
 .holding input
@@ -103,9 +110,9 @@ img
     border: none;
 }
 .newsImg {
-max-width: 360px;
-height: auto !important;
-width: expression(this.width > 360 ? 360: true);
+    max-width: 360px;
+    height: auto !important;
+    width: expression(this.width > 360 ? 360 : true);
 }
 div#ss
 {
@@ -221,20 +228,40 @@ div#ss
     width: 235px;
     color: #FFFFFF;
 }
- .element {
-      border-radius: 5px; /* (height of inner div) / 2 + padding */
-      width: 175px;
-    }
-    
-    .element > div {
-       /*width: 50%;  Adjust with JavaScript */
-       height: 5px;
-       border-radius: 5px;
-    }
-#inventory{width:310px;height:408px;margin:5px;background:url('../img/inventory/inventory.png');vertical-align:top;background-position:left top;background-repeat:no-repeat;padding:0px;border:1px solid transparent;}
-#inventory_items{margin:67px 0px 0px 20px;width:268px;height:288px;overflow:auto;position:relative;padding:1px 0px 0px 2px;background:url(../img/inventory/line.gif);background-repeat:repeat-y;background-attachment:scroll;}
+.element {
+    border-radius: 5px; /* (height of inner div) / 2 + padding */
+    width: 175px;
+}
+
+.element > div {
+    /*width: 50%;  Adjust with JavaScript */
+    height: 5px;
+    border-radius: 5px;
+}
+#inventory{
+    width:310px;
+    height:408px;
+    margin:5px;
+    background:url('../img/inventory/inventory.png'),left top, no-repeat;
+    vertical-align:top;
+    /*background-position:left top;
+    //background-repeat:no-repeat;*/
+    padding:0px;
+    border:1px solid transparent;
+}
+#inventory_items{
+    margin:67px 0px 0px 20px;
+    width:268px;height:288px;
+    overflow:auto;
+    position:relative;
+    padding:1px 0px 0px 2px;
+    background:url(../img/inventory/line.gif), repeat-y, scroll;
+    /*background-repeat:repeat-y;background-attachment:scroll;*/
+}
+
 img.floated{float:left;position:relative;padding:0px 4px 4px 0px;width:32px;height:32px;}
-.clearfloat{clear:both;height:0px;line-height:0px;visibility:hidden;}
+
+
 #inventory_items .scrollgeneric{line-height:1px;font-size:1px;position:absolute;top:0;left:0;}
 #inventory_items .vscrollerbase{width:15px;background-color:white;}
 #inventory_items .vscrollerbar{width:15px;background-color:black;}
@@ -251,23 +278,123 @@ img.floated{float:left;position:relative;padding:0px 4px 4px 0px;width:32px;heig
 #paperdoll #item{position:absolute;width:32px;height:32px;padding:0px;}
 #paperdoll .hidden{display:none;}
 #paperdoll .lefthair{margin-left:0px;margin-top:0px;}
-#paperdoll .helmet{margin-left:39px;margin-top:0px;}
+#paperdoll .helm{margin-left:39px;margin-top:0px;}
 #paperdoll .righthair{margin-left:78px;margin-top:0px;}
 #paperdoll .dress{margin-left:0px;margin-top:38px;}
-#paperdoll .top{margin-left:39px;margin-top:38px;}
+#paperdoll .body{margin-left:39px;margin-top:38px;}
 #paperdoll .cloak{margin-left:78px;margin-top:38px;}
 #paperdoll .gloves{margin-left:0px;margin-top:76px;}
-#paperdoll .lower{margin-left:39px;margin-top:76px;}
-#paperdoll .bots{margin-left:78px;margin-top:76px;}
+#paperdoll .legs{margin-left:39px;margin-top:76px;}
+#paperdoll .boots{margin-left:78px;margin-top:76px;}
 #paperdoll .weapon{margin-left:0px;margin-top:114px;}
 #paperdoll .shield{margin-left:78px;margin-top:114px;}
-#paperdoll .leftearring{margin-left:132px;margin-top:0px;}
+#paperdoll .leftear{margin-left:132px;margin-top:0px;}
 #paperdoll .necklace{margin-left:171px;margin-top:0px;}
-#paperdoll .rightearring{margin-left:210px;margin-top:0px;}
+#paperdoll .rightear{margin-left:210px;margin-top:0px;}
 #paperdoll .leftring{margin-left:132px;margin-top:38px;}
 #paperdoll .ring{margin-left:171px;margin-top:38px;}
 #paperdoll .rightring{margin-left:210px;margin-top:38px;}
-#paperdoll .braslet{margin-left:132px;margin-top:88px;}
+#paperdoll .bracelet{margin-left:132px;margin-top:88px;}
 #paperdoll .belt{margin-left:39px;margin-top:114px;}
-div.floated{float:left;position:relative;padding:0px 4px 4px 0px;width:32px;height:32px;}
+#paperdoll .deco1{margin-left: 186px;margin-top: 86px;}
+#paperdoll .deco2{margin-left: 206px;margin-top: 86px;}
+#paperdoll .deco3{margin-left: 226px;margin-top: 86px;}
+#paperdoll .deco4{margin-left: 186px;margin-top: 106px;}
+#paperdoll .deco5{margin-left: 206px;margin-top: 106px;}
+#paperdoll .deco6 {margin-left: 226px;margin-top: 106px;}
+#paperdoll .dye1{margin-left: 152px; margin-top: 138px;}
+#paperdoll .dye2{margin-left: 183px; margin-top: 138px;}
+#paperdoll .dye3{margin-left: 215px; margin-top: 138px;}
+.deco1 img, .deco2 img, .deco3 img, .deco4 img, .deco5 img, .deco6 img, .dye1 img, .dye2 img, .dye3 img
+{
+    width: 16px !important;
+    height: 16px !important;
+}
+#paperdoll_items div
+{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    padding: 0px;
+
+}
+#popup
+{
+    border: 1px solid #434034;
+    background: #000000;
+    width:350px;
+    margin: auto; 
+    padding: 5px;
+}
 .clearfloat{clear:both;height:0px;line-height:0px;visibility:hidden;}
+.icon16
+{
+    width: 16px !important;
+    height: 16px !important;
+}
+div.floated{
+    float:left;
+    position:relative;
+    padding:0px 4px 4px 0px;
+    width:32px;
+    height:32px;
+}
+div.item{
+    float: left;
+}
+div.panel{
+    position: absolute;
+}
+
+#P_tip,#I_tip,#W_tip,#S_tip
+{
+    display: none;
+    background-color: #151310;
+    border:1px solid #474337;
+    text-align: center;
+    padding: 5px;
+    position: relative;
+    width: 264px;
+    max-width: 264px;
+    top: 5px;
+    left: 18px;
+
+}
+#P_tip
+{
+    top: 19px !important;
+}
+*, *::before, *::after
+{
+    box-sizing: border-box;
+
+}
+*[aria-label]
+{
+    position: relative;
+}
+*[aria-label]::before
+{
+    content: attr(aria-label); 
+    position: absolute;
+    white-space: nowrap;
+    bottom: 95%;
+    /*right: 0;*/
+    visibility: hidden;
+    /*opacity: 0;*/
+    /*border: 1px solid #918875;*/
+    border:1px solid #C4BFB0;
+    background-color: #3A3728;
+    padding:5px;
+    z-index: -1;
+}
+*[aria-label]:hover::before
+{
+    /*opacity: 1;*/
+    visibility: visible;
+    z-index: 9999;
+}
+/*a.aOnline:hover
+{
+        
+}*/
