@@ -60,7 +60,6 @@ switch ($a)
 		}
 		break;
 	default:
-		$parse = $Lang;
 		$data = @file("include/bans.txt");
 		$parse['ban_rows'] = '';
 		for ($i = 0; $i < sizeof($data); $i++)

@@ -91,7 +91,7 @@ if($user->logged())
     }
     else
     {
-        $parse = $Lang;
+        $parse = null;
         $parse['server_list'] = NULL;
 	   $srv = $mysql->query($q[1], array('db'=>$webdb));
 	   while($srname = $mysql->fetch_array($srv))

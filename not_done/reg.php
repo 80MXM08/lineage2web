@@ -69,7 +69,7 @@ $params = implode(';', $par);
 if ($cache->needUpdate('reg', $params))
 {
 
-	$parse = $Lang;
+	$parse = null;
 	$parse['ref'] = $ref;
 	$parse['button'] = button('reg_me', 'Submit', 1);
 	$content = $tpl->parsetemplate('reg', $parse, 1);

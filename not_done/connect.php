@@ -1,7 +1,7 @@
 <?php
 define('WEB', True);
 require_once("include/core.php");
-head("How to connect");
+head($Lang['how_to_connect']);
 $tpl->parse('connect', $parse);
 foot();
 ?>
