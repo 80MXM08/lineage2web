@@ -62,10 +62,10 @@ h1 {
 .block_top
 {
 	background:url(img/block_head.gif) 0 0 no-repeat;
-	width:200px;
+	/*width:200px;*/
 	height:50px;
-	display: block;
-	text-align: center;
+	/*display: block;
+	text-align: center;*/
 }
 .block_title
 {
@@ -75,17 +75,17 @@ h1 {
 
 .block_bot
 {
-	display: block;
-	width:200px;
+	/*display: block;
+	width:200px;*/
 	height:26px;
 	background:url(img/block_foot.gif) 0 0 no-repeat;
 }
 .block_mid
 {
-	display: block;
+	/*display: block;*/
 	background:url(img/block_mid.gif) 0 0 repeat-y;
-	width:200px;
-    text-align: center;
+	/*width:200px;
+    text-align: center;*/
 }
 body
 {
@@ -95,16 +95,13 @@ body
 	color : #ffffff;
 	background: #406072;
 }
-table.menu
-{
-    margin:0 10px;
-}
+
 .menu
 {
     text-align: center;
     margin:0;
     padding:0 10px;
-    width: 90%;
+    width: 100%;
 }
 li
 {
@@ -118,7 +115,6 @@ ul.menu li:nth-child(even), table.menu tr:nth-child(even) {
 ul.menu li:hover, table.menu tr:hover
 {
     background-color: #505050;
-    color: #dadada;
 }
 .block
 {
@@ -187,8 +183,8 @@ a.female{color:#d02090;text-decoration:none;}
     margin-left:40px;
 	background-color: #37301D;
 	text-align: center;
-    margin-bottom: -32767px;
-    padding-bottom: 32767px;
+    /*margin-bottom: -32767px;
+    padding-bottom: 32767px;*/
 }
 .cMidR
 {
@@ -225,8 +221,8 @@ a.female{color:#d02090;text-decoration:none;}
 }
 .cMid
 {
-        margin-bottom: -32767px;
-    padding-bottom: 32767px;
+    /*margin-bottom: -32767px;
+    padding-bottom: 32767px;*/
     float: left;
 width: 100%;
 }
@@ -272,18 +268,19 @@ td.maxMp{color:#0099ff;}
 input.login{border:0 none;background:url("img/login_text.gif") 0% 0% no-repeat scroll transparent;color:rgb(217, 222, 218);width:129px;}
 table#banned
 {
-    width: 100%;
     text-align: center;
+    border: 3px solid;
+    margin:auto;
 }
 table#banned tr td
 {
-    color: #FF0000;
+    color: #000000;
     font-weight: bold;
+    
 }
-.error{color:#990000;padding:7px;margin-top:5px;margin-bottom:10px;border:1px dashed #990000;}
-/*.error b{color:#990000;background:inherit;}
-.success b{color:#7ba813;background:inherit;}*/
-.success{color:#7ba813;padding:7px;margin-top:5px;margin-bottom:5px;border:1px dashed #7ba813;}
+.error{color:#990000;padding:10px;margin-top:20px;margin-bottom:20px;margin-left: 150px; margin-right: 150px;border:2px dashed #990000;}
+
+.success{color:#7ba813;padding:10px;margin-top:20px;margin-bottom:20px;margin-left: 150px; margin-right: 150px;border:2px dashed #7ba813;}
 .page-choose
 {
     text-align: center;
@@ -333,12 +330,14 @@ table.stat
 .forts
 {
     border:  1px solid #FFF;
-    
+    align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 .forts td
 {
     border: 1px solid #FFF;
-    width: 30%;
+    max-width: 30%;
 }
 .fort_info
 {

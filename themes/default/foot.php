@@ -1,43 +1,45 @@
 <?php
+if (!defined('CORE')) {
+    header('Location: ../../index.php');
+    exit();
+}
 
-$parse = $Lang;
 $parse['skinurl'] = 'themes/' . User::getVar('theme');
 $parse['foot'] = '';
-#TODO: build from SQL
-if ($foot)
-{
-	$parse['blocks_right'] = includeBlock('stats', $Lang['stats'], 1, true);
-	$parse['blocks_right'] .= includeBlock('top10', $Lang['top10'], 1, true);
-
-
-	//$parse['blocks_right'].=includeBlock('vote', $Lang['vote'],1,true);
+if ($foot) {
+    $parse['blocks_right'] = Block::show('r');
 }
-$parse['foot'] = TplParser::parse('theme/foot_foot' . ((!$foot) ? '_e' : ''), $parse, true);
+$parse['foot'] = tpl::parse('theme/foot_foot' . ((!$foot) ? '_e' : ''), $parse);
 
 
-$parse['copyrights'] = $Lang['l2_trademark'] . Config::get('head', 'CopyRight', '<a href="mailto:antons007@gmail.com">80MXM08</a> (c) LineageII PvP Land') . '<br />';
+$parse['copyrights'] = $Lang['__l2-trademark_'] . Conf::get('web', 'copy');
 $parse['debugs'] = '';
-#TODO: remove comment
-if (Config::get('debug', 'sql', '0') /*&& User::logged() && User::isAdmin()*/ )
-{
-	$tp = explode(" ", microtime());
-	$endTime = $tp[1] . substr($tp[0], 1);
-	$totalTime = round(bcsub($endTime, $startTime, 6), 4);
-	$tst = round(SQL::getTime(), 4);
-	$avgqt = round(SQL::getTime() / SQL::getQueryCount(), 4);
-	$qc = round(SQL::getQueryCount(), 4);
-	$parse2 = $parse;
-	$parse2['timeString'] = sprintf($Lang['page_generated'], $totalTime, $tst, $qc, $avgqt);
-	$parse2['debugDisplay'] = !User::getVar('debug_menu') ? 'block' : 'none';
-	$parse2['debugDisplay2'] = User::getVar('debug_menu') ? 'block' : 'none';
 
-	$parse['debugs'] .= SQL::debug($parse2);
+if ((Conf::get('debug', 'bar')=='2') || (Conf::get('debug', 'bar') == '1' && User::isAdmin())) {
+    $tp = explode(" ", microtime());
+    $endTime = $tp[1] . substr($tp[0], 1);
+    $totalTime = round(bcsub($endTime, $startTime, 6), 4);
+    $tst = 0;
+    $qc = 0;
+    foreach ($sql as $s) {
+        if ($s->isDebug()) {
+            $tst += $s->getTime();
+            $qc += $s->getQueryCount();
+            $parse['debugs'] .= $s->debug($parse);
+        }
+    }
 
+    $parse['timeString'] = sprintf($Lang['__page-generated_'], $totalTime, $tst, $qc);
+    $parse['debugDisplay'] = !User::getVar('debugMenu') ? 'block' : 'none';
+    $parse['debugDisplay2'] = User::getVar('debugMenu') ? 'block' : 'none';
 }
-if (Config::get('debug', 'user', 0))
+else
 {
-	$parse['debugs'] .= User::debug();
+    $parse['debugDisplay'] = 'none';
+    $parse['debugDisplay2'] = 'none';
+}
+if (Conf::get('debug', 'user')) {
+    $parse['debugs'] .= User::printDebug();
 }
 
-TplParser::parse('theme/foot', $parse, false);
-?>
+echo tpl::parse('theme/foot', $parse);
