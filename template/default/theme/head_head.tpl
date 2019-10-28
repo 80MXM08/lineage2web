@@ -7,7 +7,7 @@
                     <div class="cCont">
                         <div class="cTopL"></div>
                         <div class="cTopC">
-                            <div style="padding-top: 15px">Main</div>
+                            <div class="block_title">{__main-title_}</div>
                         </div>
                     </div>
                 </div>

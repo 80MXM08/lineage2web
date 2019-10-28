@@ -1,0 +1,1 @@
+<tr><td>{class}:</td><td>{level}</td><td>{henna}</td></tr>

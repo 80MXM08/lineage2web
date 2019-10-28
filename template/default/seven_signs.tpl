@@ -1,11 +1,4 @@
-<h1>{home}</h1><hr />
-<table class="stat">
-{race_rows}
-<tr><th>{male}<img src="img/stat/sex.jpg" alt="{male}" /></th><td><img src="img/stat/sexline.jpg" height="10px" width="{mc}px" alt="" /> {mc}%</td></tr>
-<tr><th>{female}<img src="img/stat/sex1.jpg" alt="{female}" /></th><td><img src="img/stat/sexline.jpg" height="10px" width="{fc}px" alt="" /> {fc}%</td></tr>
-</table><hr />
-
-<h1>{seven_signs}</h1>
+<h1>{__seven-signs_}</h1>
 
 <script type="text/javascript">
 //<!--
@@ -20,11 +13,11 @@ var seal3 = {sowner};
 // -->
 </script>
 <div id="ss">
-<div id="ssStatus">{status}</div>
+<div id="ssStatus">{__status_}</div>
 <div id="ssTimeImg"></div>
 <div id="ssTime"><div id="ssTime2"></div></div>
-<div id="ssDawn">{dawn} <img id="ssDawnImg" src="img/ss/ssqbar2.gif" alt="{dawn}" /> </div>
-<div id="ssTwilight">{dusk} <img id="ssTwilightImg" src="img/ss/ssqbar1.gif" alt="{dusk}" /> </div>
+<div id="ssDawn">{__dawn_} <img id="ssDawnImg" src="img/ss/ssqbar2.gif" alt="{__dawn_}" /> </div>
+<div id="ssTwilight">{__dusk_} <img id="ssTwilightImg" src="img/ss/ssqbar1.gif" alt="{__dusk_}" /> </div>
 <div id="ssSeals">
 <div id="ssAvarice"></div>
 <div id="ssGnosis"></div>

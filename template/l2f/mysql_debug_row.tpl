@@ -1,0 +1,1 @@
+<tr class="mysql_debug"><td style="width:20%;">[{key}] =&gt; <span style="color: {color}; font-weight: bold;" title="{title}">{time}</span></td><td>{name} :: [{query}]{result}[{rows}]</td></tr>

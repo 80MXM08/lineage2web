@@ -66,7 +66,7 @@ function checkform(f)
  </tr>
  <tr>
   <td>{ver_img}</td>
-  <td><img src="captcha.php" alt="" /></td>
+  <td><img src="actions.php?a=captcha" alt="" /></td>
  </tr>
   <tr>
   <td>{ver_code}</td>

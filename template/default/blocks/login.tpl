@@ -1,5 +1,5 @@
 <form action="login.php" method="post">
-{account}<br /><input type="text" name="account" class="login" /><br />
-{password}<br /><input type="password" name="password" class="login" /><br />
-{remember_me} <input type="checkbox" name="remember" /><br />{button}
+{__account_}<br /><input type="text" name="account" class="login" /><br />
+{__password_}<br /><input type="password" name="password" class="login" /><br />
+{__remember-me_} <input type="checkbox" name="remember" /><br />{button}
 </form>

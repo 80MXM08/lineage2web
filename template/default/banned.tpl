@@ -1,5 +1,5 @@
-<script type="text/javascript">
-var TimeFormat = "%%D%% {days}, %%H%% {hours}, %%M%% {minutes}, %%S%% {seconds}.";
+<script>
+var TimeFormat = "%%D%% {__days_}, %%H%% {__hours_}, %%M%% {__minutes_}, %%S%% {__seconds_}.";
 var date = new Date();
 var banCounter = new Countdown({  
     seconds:{secs}-date.getTime()/1000,  // number of seconds to count down
@@ -12,19 +12,19 @@ var banCounter = new Countdown({
   document.getElementById("ban_counter").innerHTML = ShowTime;
         
     }, // callback for each second
-    onCounterEnd: function(){ document.getElementById("ban_counter").innerHTML='{ban_over}'} // final action
+    onCounterEnd: function(){ document.getElementById("ban_counter").innerHTML='{__ban-over_}'} // final action
 });
 
 banCounter.start();
 </script>
 <div id="divContainer">
 <table id="banned">
-<tr><td colspan="2"><div><h1>{access_denied}</h1></div></td></tr>
-<tr><td>{your_ip}:</td><td>{ip}</td></tr>
-<tr><td>{reason}:</td><td>{reas}</td></tr>
-<tr><td>{baned_from}: </td><td>{date_from}</td></tr>
-<tr><td>{baned_till}:</td><td>{date_to}</td></tr>
-<tr><td colspan="2">{time_left}t</td></tr>
-<tr><td colspan="2"><h1><span id="ban_counter"></span></h1></td></tr>
+<tr><td colspan="2"><div><h1>{__access-denied_}</h1></div></td></tr>
+<tr><td>{__your-ip_}:</td><td>{ip}</td></tr>
+<tr><td>{__reason_}:</td><td>{comment}</td></tr>
+<tr><td>{__baned-from_}: </td><td>{date_from}</td></tr>
+<tr><td>{__baned-till_}:</td><td>{date_to}</td></tr>
+<tr><td colspan="2">{__time-left_}t</td></tr>
+<tr><td colspan="2"><h1><span id="ban_counter">&nbsp;</span></h1></td></tr>
 </table>
 </div>

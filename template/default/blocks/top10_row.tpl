@@ -1,1 +1,1 @@
-<tr><td class="nr"><b>{nr}</b></td><td class="user"><a href="user.php?cid={charId}&amp;server={serv_id}" class="{sex}">{char_name}</a></td></tr>
+<tr><td class="nr"><b>{nr}</b></td><td class="user"><a href="user.php?id={charId}&amp;server={serv_id}" class="{sex}">{char_name}</a></td></tr>

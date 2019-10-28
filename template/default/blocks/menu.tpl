@@ -8,5 +8,5 @@
     <li class="menu"><a href="rules.php">{rules}</a></li>
     <li class="menu"><a href="donate.php">{donate}</a></li>
 </ul>
-{theme}
+{__theme_}: {theme}
 <div id="lang2">{lang_list}</div>

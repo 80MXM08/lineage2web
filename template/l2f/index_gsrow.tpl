@@ -1,0 +1,1 @@
+<tr><td>{name}:</td><td>{exp}</td><td>{sp}</td><td>{adena}</td><td>{drop}</td><td>{spoil}</td><td>{quest}</td><td>{safeenchant}({safeenchantfull}) / {maxenchant}</td></tr>
