@@ -195,7 +195,7 @@ class L2WEBH5 //implements iL2WEB
 	{
 		global $Lang;
 
-		$grp		 = DAO::getInstance()::getL2WItem()::getWeapon($inv['item_id']);
+		$grp		 = DAO::get()::L2WItem()::getWeapon($inv['item_id']);
 		$item_type	 = L2WEBH5::$l2web[$item['type']][$item['type2']];
 		$hands		 = $item['type'] == 'w' && $item['type2'] == 0 ? '' : ' / ' . L2WEBH5::$l2web['body'][$item['body_part']];
 		$type		 = '<br /><br /><span style="color:' . L2WEBH5::$colors['brown'] . ';">' . $item_type . $hands . '</span><br />';
@@ -224,7 +224,7 @@ class L2WEBH5 //implements iL2WEB
 	{
 		global $Lang;
 
-		$grp	 = DAO::getInstance()::getL2WItem()::getWeapon($inv['item_id']);
+		$grp	 = DAO::get()::L2WItem()::getWeapon($inv['item_id']);
 		$epdef	 = L2WEBH5::getAEnchant($inv['enchant_level']);
 		$pdef	 = $grp['shield_pdef'] + $epdef;
 		$sepdef	 = $epdef > 0 ? ' (' . $grp['shield_pdef'] . ' <span style="color:' . L2WEBH5::$colors['yellow'] . ';">+ ' . $epdef . '</span>)' : '';
@@ -247,7 +247,7 @@ class L2WEBH5 //implements iL2WEB
 		$hands		 = L2WEBH5::$l2web['body'][$item['body_part']];
 		$item_type	 = $item['type2'] == 0 || $item['type2'] == 4 ? '' : ' / ' . L2WEBH5::$l2web[$item['type']][$item['type2']];
 		$ret		 .= '<br /><br /><span style="color:' . L2WEBH5::$colors['brown'] . ';">' . $hands . $item_type . '</span>';
-		$grp		 = DAO::getInstance()::getL2WItem()::getArmor($item['id']);
+		$grp		 = DAO::get()::L2WItem()::getArmor($item['id']);
 		$edef		 = L2WEBH5::getAEnchant($inv['enchant_level']);
 
 		if ($grp['pdef'])
@@ -312,7 +312,7 @@ class L2WEBH5 //implements iL2WEB
 		}
 		else
 		{
-			$aug = DAO::getInstance()::getItem()::getAugment($srv, $id);
+			$aug = DAO::get()::Item()::getAugment($srv, $id);
 			if (!$aug)
 			{
 				return false;
@@ -320,8 +320,8 @@ class L2WEBH5 //implements iL2WEB
 			$id1 = $aug['augAttributes'] % 65536;
 			$id2 = floor($aug['augAttributes'] / 65536);
 		}
-		$aug1	 = DAO::getInstance()::getL2WItem()::getAugment($id1);
-		$aug2	 = DAO::getInstance()::getL2WItem()::getAugment($id2);
+		$aug1	 = DAO::get()::L2WItem()::getAugment($id1);
+		$aug2	 = DAO::get()::L2WItem()::getAugment($id2);
 		return '<span style="color:' . L2WEBH5::augColor($aug2['level']) . ';">' . $aug1['effect'] . '<br />' . $aug2['effect'].'</span>';
 	}
 
@@ -424,7 +424,7 @@ class L2WEBH5 //implements iL2WEB
 		}
 		else
 		{
-			$eleme = DAO::getInstance()::getElement()::get($srv, $elements);
+			$eleme = DAO::get()::Element()::get($srv, $elements);
 			if ($eleme)
 			{
 				foreach ($eleme as $ele)
@@ -601,14 +601,14 @@ static function formatSkillAddName($n)
 					continue;
 				}
 
-				$part_name	 = DAO::getInstance()::getL2WItem()::getItemName($p2);
+				$part_name	 = DAO::get()::L2WItem()::getItemName($p2);
 				$color		 = L2WEBH5::$colors['grey'];
 
 				if ($loc != 'PAPERDOLL')
 				{
 					continue;
 				}
-				$p = DAO::getInstance()::getItem()::getEnchant($srv, $inv['owner_id'], $p2, $loc);
+				$p = DAO::get()::Item()::getEnchant($srv, $inv['owner_id'], $p2, $loc);
 				if (!$p)
 				{
 					continue;
@@ -656,7 +656,7 @@ static function formatSkillAddName($n)
 	private static function checkExtraPart($inv, $id, $srv, $loc)
 	{
 		$extra	 = false;
-		$name	 = DAO::getInstance()::getL2WItem()::getItemName($id);
+		$name	 = DAO::get()::L2WItem()::getItemName($id);
 		if (!$name)
 		{
 			die('UNKNOWN ID - ' . $id);
@@ -664,7 +664,7 @@ static function formatSkillAddName($n)
 
 		if ($srv != 'ws' || $loc != 'PAPERDOLL')
 		{
-			$b = DAO::getInstance()::getItem()::getEnchant($srv, $inv['owner_id'], $id, $loc);
+			$b = DAO::get()::Item()::getEnchant($srv, $inv['owner_id'], $id, $loc);
 
 			if ($b)
 			{
@@ -676,7 +676,7 @@ static function formatSkillAddName($n)
 	}
 	static function drawSkill($sId, $id, $lvl)
 	{
-		$info = DAO::getInstance()::getL2WSkills()::get($id, $lvl);
+		$info = DAO::get()::L2WSkills()::get($id, $lvl);
 		if (!$info)
 		{
 			echo $id. ' - '.$lvl . ' - no Skill info <br />';
@@ -699,7 +699,7 @@ static function formatSkillAddName($n)
 	static function drawItem($item, $sId, $type = '')
 	{
 		//:TODO check augment
-		$info = DAO::getInstance()::getL2WItem()::getItem($item['item_id']);
+		$info = DAO::get()::L2WItem()::getItem($item['item_id']);
 		if (!$info)
 		{
 			echo $item['item_id'] . ' - no Item info <br />';
@@ -728,7 +728,7 @@ static function formatSkillAddName($n)
 
 	static function drawHenna($id, $loc)
 	{
-		$info = DAO::getInstance()::getL2WHenna()::get($id);
+		$info = DAO::get()::L2WHenna()::get($id);
 		if (!$info)
 		{
 			echo $id . ' - no Henna info <br />';
@@ -741,7 +741,7 @@ static function formatSkillAddName($n)
 	}
 	static function drawSimpleHenna($id)
 	{
-		$info = DAO::getInstance()::getL2WHenna()::get($id);
+		$info = DAO::get()::L2WHenna()::get($id);
 		if (!$info)
 		{
 			echo $id . ' - no Henna info <br />';
@@ -758,18 +758,18 @@ static function formatSkillAddName($n)
 		global $Lang;
 		if ($srv == 'ws')
 		{
-			$inv = DAO::getInstance()::getL2WItem()::getWebshop($id);
+			$inv = DAO::get()::L2WItem()::getWebshop($id);
 		}
 		else
 		{
-			$inv = DAO::getInstance()::getItem()::get($srv, $id);
+			$inv = DAO::get()::Item()::get($srv, $id);
 		}
 		if (!$inv)
 		{
 			return 'no data';
 		}
 
-		$item = DAO::getInstance()::getL2WItem()::getItem($inv['item_id']);
+		$item = DAO::get()::L2WItem()::getItem($inv['item_id']);
 
 
 		$aug	 = L2WEBH5::getAugment($srv == 'ws' ? $inv['augment'] : $inv['object_id'], $srv);
@@ -839,7 +839,7 @@ static function formatSkillAddName($n)
 	{
 		//global $Lang;
 
-		$info = DAO::getInstance()::getL2WSkills()::get($id, $lvl);
+		$info = DAO::get()::L2WSkills()::get($id, $lvl);
 if (!$info)
 		{
 			return;
@@ -868,7 +868,7 @@ if (!$info)
 	{
 		//global $Lang;
 
-		$info = DAO::getInstance()::getL2WHenna()::get($id);
+		$info = DAO::get()::L2WHenna()::get($id);
 if (!$info)
 		{
 			return;

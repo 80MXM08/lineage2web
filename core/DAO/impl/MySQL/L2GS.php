@@ -256,13 +256,13 @@ class ItemMySQLImpl implements iItem {
 }
 
 
-class ItemElementMySQLImpl implements iItemElement {
+class ElementMySQLImpl implements iElement {
 
     private static $GET = 'SELECT * FROM item_elementals WHERE itemId=?';
 
     static function get($srv, $id) {
         global $sql;
-        $r = $sql[$srv]->query(ItemElementMySQLImpl::$GET, [$id], __METHOD__);
+        $r = $sql[$srv]->query(ElementMySQLImpl::$GET, [$id], __METHOD__);
         return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : false;
     }
 

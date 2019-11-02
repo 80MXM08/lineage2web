@@ -15,7 +15,7 @@ $srv = fInt(filter_input(INPUT_GET, 'server'));
 $gsrv = getGSById($srv);
 $sId = $gsrv['id'];
 $reCache = fBool(filter_input(INPUT_GET, 'recache'));
-$char = DAO::getInstance()::getChar()::getCharAndClanData($sId, $id);
+$char = DAO::get()::Char()::getCharAndClanData($sId, $id);
 if (!$char) {
     head($Lang['__not-found_']);
     echo msg($Lang['__error_'], $Lang['__not-found_'], 'error', false);
@@ -36,7 +36,7 @@ $page = 'user';
 if (html::check($page, $pars, $reCache)) {
     $parse = $char;
     //$parse['main_sub'] = $char['base_class'] == $char['classid'] ? $Lang['__main-class_'] : $Lang['__sub-class_'];
-    $parse['main_sub'] = $Lang['__main-class_'];
+    $parse['main_sub'] = $Lang['__main_class_'];
     $parse['time'] = date('d.m.Y H:i:s');
     $parse['update_time'] = date('d.m.Y H:i:s', time() + 900);
     $parse['color'] = $char['sex'] == '0' ? '#8080FF' : '#FF8080';
@@ -65,13 +65,13 @@ if (html::check($page, $pars, $reCache)) {
     }
     $parse['sub_rows'] = '';
     //$subs = DAO::getInstance()::getChar()::getSubclassesNotCurrent($sId, $char['charId'], $char['classid']);
-    $subs = DAO::getInstance()::getChar()::getSubclasses($sId, $char['charId']);
+    $subs = DAO::get()::Char()::getSubclasses($sId, $char['charId']);
     if ($subs) {
         foreach ($subs as $sub) {
             $sparse = $sub;
             $type = $char['base_class'] == $sub['class_id'] ? '[Main]' : '[Sub]';
             $sparse['class'] = '<a href="user.php?id=' . $id . '&amp;server=' . $sId . '&amp;class=' . $sub['class_index'] . '">' . $Lang['__class-' . $sub['class_id'] . '_'] . '</a> ' . $type;
-            $hennas = DAO::getInstance()::getHenna()::getAll($sId, $char['charId'], $sub['class_index']);
+            $hennas = DAO::get()::Henna()::getAll($sId, $char['charId'], $sub['class_index']);
             $sparse['henna'] = '';
             if ($hennas) {
                 foreach ($hennas as $henna) {
@@ -81,13 +81,13 @@ if (html::check($page, $pars, $reCache)) {
             $parse['sub_rows'] .= tpl::parse('user_sub_rows', $sparse);
         }
     }
-    $pdoll = DAO::getInstance()::getItem()::getByLoc($sId, $id, 'PAPERDOLL');
+    $pdoll = DAO::get()::Item()::getByLoc($sId, $id, 'PAPERDOLL');
     if ($pdoll) {
         foreach ($pdoll as $p) {
             $parse['eq_items'] .= $gs['l2web']::drawItem($p, $sId, 'P');
         }
     }
-    $henna = DAO::getInstance()::getHenna()::getAll($sId, $id, '0');
+    $henna = DAO::get()::Henna()::getAll($sId, $id, '0');
     if ($henna) {
         foreach ($henna as $h) {
             $parse['eq_items'] .= $gs['l2web']::drawHenna($h['symbol_id'], $h['slot']);
@@ -97,7 +97,7 @@ if (html::check($page, $pars, $reCache)) {
     if (User::isMod()) {
 
         $parse['inv_items'] .= '<div id="inventory" align="left"><div id="inventory_items" class="flexcroll">';
-        $inv = DAO::getInstance()::getItem()::getByLoc($sId, $id, 'INVENTORY');
+        $inv = DAO::get()::Item()::getByLoc($sId, $id, 'INVENTORY');
         if ($inv) {
             foreach ($inv as $i) {
                 $parse['inv_items'] .= $gs['l2web']::drawItem($i, $sId, 'I');
@@ -106,7 +106,7 @@ if (html::check($page, $pars, $reCache)) {
         $parse['inv_items'] .= '<div class="clearfloat"></div></div><div id="I_tip"></div></div>';
 
         $parse['ware_items'] .= '<div id="inventory" align="left"><div id="inventory_items" class="flexcroll">';
-        $ware = DAO::getInstance()::getItem()::getByLoc($sId, $id, 'WAREHOUSE');
+        $ware = DAO::get()::Item()::getByLoc($sId, $id, 'WAREHOUSE');
         if ($ware) {
             foreach ($ware as $w) {
                 $parse['ware_items'] .= $gs['l2web']::drawItem($w, $sId, 'W');
@@ -115,7 +115,7 @@ if (html::check($page, $pars, $reCache)) {
         $parse['ware_items'] .= '<div class="clearfloat"></div></div><div id="W_tip"></div></div>';
 
         $i = 0;
-        $skills = DAO::getInstance()::getSkills()::get($sId, $id, '0');
+        $skills = DAO::get()::Skills()::get($sId, $id, '0');
         $parse['skills'] .= '<div id="inventory" align="left"><div id="inventory_items" class="flexcroll">';
         if ($skills) {
             foreach ($skills as $skill) {
@@ -126,7 +126,7 @@ if (html::check($page, $pars, $reCache)) {
     }
 
     foreach ($GS as $dbs) {
-        $chars = DAO::getInstance()::getChar()::getOtherChars($dbs['id'], $char['charId'], $char['account_name']);
+        $chars = DAO::get()::Char()::getOtherChars($dbs['id'], $char['charId'], $char['account_name']);
         if (count($chars) == 0) {
             continue;
         }

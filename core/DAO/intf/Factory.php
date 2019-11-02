@@ -32,7 +32,7 @@ interface iFactory {
 
     static function L2WSkills();
 
-    static function Messages();
+    static function messages();
 
     static function News();
 

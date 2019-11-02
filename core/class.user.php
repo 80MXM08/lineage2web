@@ -188,7 +188,7 @@ class User
 	    case 'lang':
 		return User::setLang($val, $update);
 	    case 'theme':
-		echo die($val);
+		//echo die('theme - '.$val);
 		return User::setTheme($val, $update);
 	    default:
 		$_SESSION[$var] = $val;

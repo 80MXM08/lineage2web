@@ -261,7 +261,7 @@ switch ($a)
 		break;
 
 	case 'item':
-		require_once ("include/core.php");
+		require_once ("core/core.php");
 		$id	 = getInt('id');
 		$sId = getInt('srv');
 		if ($sId)

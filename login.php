@@ -1,6 +1,6 @@
 <?php
 define('L2WEB', True);
-require_once("include/core.php");
+require_once("core/core.php");
 
 if ($_POST && isset($_POST['account']) && isset($_POST['password']))
 {

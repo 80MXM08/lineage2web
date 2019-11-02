@@ -80,7 +80,7 @@ interface iSkills {
     
 }
 
-interface iItemElement {
+interface iElement {
 
     static function get($srv, $id);
 }

@@ -230,7 +230,7 @@ class L2WebH5old {
                 }
             }
         } else {
-            foreach (DAO::getInstance()::getElement($srv, $item['id']) as $ele) {
+            foreach (DAO::get()::Element($srv, $item['id']) as $ele) {
                 $element .= L2Web::drawAElement($ele['elemType'], $ele['elemValue']) . '';
             }
         }
@@ -273,7 +273,7 @@ class L2WebH5old {
         $item_type = L2Web::$l2web['w'][$item['item_type']];
         //$qry = $sql['core']->query('WEAPON_DATA', [':id' => $inv['item_id']]);
         //$grp = $qry->fetch(PDO::FETCH_ASSOC);
-	$grp = DAO::getInstance()::getL2WItem()::getWeapon($inv['item_id']);
+	$grp = DAO::get()::L2WItem()::getWeapon($inv['item_id']);
         $hands = L2Web::$l2web['body'][$grp['body_part']];
 
         $desc = $item['desc'];
@@ -322,7 +322,7 @@ class L2WebH5old {
             }
         } else {
             //$sql[$srv]->query('GET_ELEMENTS', array('id' => $inv['object_id']));
-            foreach(DAO::getInstance()::getElement($srv, $inv['object_id']) as $ele) {
+            foreach(DAO::get()::Element($srv, $inv['object_id']) as $ele) {
                 $element .= L2Web::drawWElement($ele['elemType'], $ele['elemValue']) . '';
             }
         }
@@ -578,7 +578,7 @@ class L2WebH5old {
     }
 
     static function getArmorInfo($id) {
-	return DAO::getInstance()::getL2WItem()::getArmor($id);
+	return DAO::get()::L2WItem()::getArmor($id);
     }
     /*static function getWSAugment($id, $srv) {
         global $sql;
@@ -621,10 +621,10 @@ class L2WebH5old {
         }
         //$a1 = $sql['core']->query('AUGMENT_DATA', [':id' => $id1]);
         //$aug1 = $a1->fetch(PDO::FETCH_ASSOC);
-	$aug1 = DAO::getInstance()::getL2WItem()::getAugment($id1);
+	$aug1 = DAO::get()::L2WItem()::getAugment($id1);
         //$a2 = $sql['core']->query('AUGMENT_DATA', [':id' => $id2]);
         //$aug2 = $a2->fetch(PDO::FETCH_ASSOC);
-	$aug2 = DAO::getInstance()::getL2WItem()::getAugment($id2);
+	$aug2 = DAO::get()::L2WItem()::getAugment($id2);
         $color = L2Web::augColor($aug2['level']);
         return '<font color="' . $color . '">' . $aug1['desc'] . '<br />' . $aug2['desc'] . '</font>';
     }
@@ -782,11 +782,11 @@ class L2WebH5old {
             //    die('UNKNOWN ID - '.$part);
             //}
             //$it = $a->fetch(PDO::FETCH_ASSOC);
-	    $it = DAO::getInstance()::getL2WItem()::getItemName($part);
+	    $it = DAO::get()::L2WItem()::getItemName($part);
             $part_name = $it['name'];
             if ($loc == 'PAPERDOLL') {
                 //$b = $sql[$srv]->query('GET_ENCHANT', [':oId' => $inv['owner_id'], ':iId' => $part, ':loc' => 'PAPERDOLL']);
-		$p = DAO::getInstance()::getItem()::getEnchant($srv, $inv['owner_id'], $part, $loc);
+		$p = DAO::get()::getItem()::Enchant($srv, $inv['owner_id'], $part, $loc);
                 //if ($b->rowCount()) {
 		if ($p) {
                     //$p = $b->fetch(PDO::FETCH_ASSOC);
@@ -835,7 +835,7 @@ class L2WebH5old {
         $color = '';
         $extra = false;
         //$a = $sql['core']->query('GET_ITEM_NAME', [':id' => $id]);
-	$a = DAO::getInstance()::getL2WItem()::getItemName($id);
+	$a = DAO::get()::L2WItem()::getItemName($id);
 	//$it = $a->fetch(PDO::FETCH_ASSOC);
         $name = $a['name'];
         if (!$name) {
@@ -854,7 +854,7 @@ class L2WebH5old {
     }
 
     static function drawItem($item, $sId, $type = '') {
-	$info = DAO::getInstance()::getL2WItem()::getItem($item['item_id']);
+	$info = DAO::get()::L2WItem()::getItem($item['item_id']);
         $name = $info['name'];
         $addname = L2Web::formatAddName($info['add_name']);
         $enc = L2Web::formatEnchant($item['enchant_level']);
@@ -872,15 +872,15 @@ class L2WebH5old {
     static function getItemData($srv, $id)
 {
     if ($srv == 'ws') {
-            $inv = DAO::getInstance()::getL2WItem()::getWebshop($id);
+            $inv = DAO::get()::L2WItem()::getWebshop($id);
         } else {
-            $inv = DAO::getInstance()::getItem()::get($srv, $id);
+            $inv = DAO::get()::Item()::get($srv, $id);
         }
         if (!$inv) {
             return;
         }
  
-        $item = DAO::getInstance()::getL2WItem()::getItem($inv['item_id']);
+        $item = DAO::get()::L2WItem()::getItem($inv['item_id']);
         switch ($item['type']) {
             case 'w':
                 echo L2Web::buildWeapon($inv, $item, $srv);
