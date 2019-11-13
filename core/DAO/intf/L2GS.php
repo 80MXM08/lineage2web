@@ -60,7 +60,7 @@ interface iSevenSigns {
     
 }
 
-interface iTerritory {
+interface iTerritoryWar {
     
 }
 

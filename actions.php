@@ -213,7 +213,7 @@ switch ($a)
 		echo json_encode($data);
 		break;
 	case 'getchar':
-		require_once ("include/core.php");
+		require_once ("core/core.php");
 		#TODO: fix server id?
 		if (isset($_GET['server']) && is_numeric($_GET['server']) && User::logged())
 		{
@@ -227,7 +227,7 @@ switch ($a)
 
 		break;
 	case 'vars':
-		require_once ("include/core.php");
+		require_once ("core/core.php");
 		if (isset($_GET['var']) && isset($_GET['val']))
 		{
 			$var	 = getString('var');
@@ -256,7 +256,7 @@ switch ($a)
 		}
 		break;
 	case 'viewimg':
-		require_once ("include/core.php");
+		require_once ("core/core.php");
 		tpl::parse('viewimg', null);
 		break;
 
@@ -279,14 +279,14 @@ switch ($a)
 		//foot(0);
 		break;
 	case 'skill':
-		require_once ("include/core.php");
+		require_once ("core/core.php");
 		$id	 = getInt('id');
 		$lvl = getInt('lvl');
 		
 		echo getGSById()['l2web']::getSkillData($id, $lvl);
 		break;
 			case 'henna':
-		require_once ("include/core.php");
+		require_once ("core/core.php");
 		$id	 = getInt('id');
 
 		echo getGSById()['l2web']::getHennaData($id);

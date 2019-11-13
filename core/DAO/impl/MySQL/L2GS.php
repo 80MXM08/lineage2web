@@ -133,8 +133,8 @@ class FortMySQLImpl implements iFort {
 
     private static $GET = 'SELECT id, name, lastOwnedTime, clan_id, clan_name, charId, char_name FROM fort LEFT OUTER JOIN clan_data ON clan_data.clan_id=fort.owner LEFT JOIN characters ON clan_data.leader_id=characters.charId ORDER by id ASC;';
     //private static $GET = 'SELECT id, name, taxPercent, siegeDate, charId, char_name, clan_id, clan_name FROM castle LEFT OUTER JOIN clan_data ON clan_data.hasCastle=castle.id LEFT OUTER JOIN characters ON clan_data.leader_id=characters.charId ORDER by id ASC;';
-    private static $GET_CLAN_ALLY = 'SELECT id, taxPercent, siegeDate, clan_clan.clan_id, clan_clan.clan_name, clan_clan.leader_id AS clan_leader_id, clan_char.char_name AS clan_leader_name, ally_clan.clan_id AS ally_id, clan_clan.ally_name, ally_clan.leader_id AS ally_leader_id, ally_char.char_name AS ally_leader_name FROM castle LEFT JOIN clan_data clan_clan ON clan_clan.hasCastle = castle.id LEFT JOIN clan_data ally_clan ON ally_clan.clan_id=clan_clan.ally_id LEFT JOIN characters clan_char ON clan_char.charId=clan_clan.leader_id LEFT JOIN characters ally_char ON ally_clan.leader_id=ally_char.charId ORDER BY castle.id ASC;';
-    private static $GET_CLAN_ALLY_TERRITORY = 'SELECT id, taxPercent, siegeDate, clan_clan.clan_id, clan_clan.clan_name, clan_clan.leader_id AS clan_leader_id, clan_char.char_name AS clan_leader_name, ally_clan.clan_id AS ally_id, clan_clan.ally_name, ally_clan.leader_id AS ally_leader_id, ally_char.char_name AS ally_leader_name, ownedWardIds AS wards FROM castle LEFT JOIN clan_data clan_clan ON clan_clan.hasCastle = castle.id LEFT JOIN clan_data ally_clan ON ally_clan.clan_id=clan_clan.ally_id LEFT JOIN characters clan_char ON clan_char.charId=clan_clan.leader_id LEFT JOIN characters ally_char ON ally_clan.leader_id=ally_char.charId JOIN territories ON castle.id=territories.castleId ORDER BY castle.id ASC;';
+    private static $GET_CLAN_ALLY = 'SELECT fort.id, fort.`name`, lastOwnedTime, fort.siegeDate, clan_clan.clan_id, clan_clan.clan_name, clan_clan.leader_id AS clan_leader_id, clan_char.char_name AS clan_leader_name, ally_clan.clan_id AS ally_id, clan_clan.ally_name, ally_clan.leader_id AS ally_leader_id, ally_char.char_name AS ally_leader_name, fort.lastOwnedTime, fort.fortType, fort.state, fort.supplyLvL FROM fort LEFT JOIN clan_data AS clan_clan ON clan_clan.clan_id = fort.`owner` LEFT JOIN clan_data AS ally_clan ON ally_clan.clan_id = clan_clan.ally_id LEFT JOIN characters AS clan_char ON clan_char.charId = clan_clan.leader_id LEFT JOIN characters AS ally_char ON ally_clan.leader_id = ally_char.charId ORDER BY fort.id ASC;';
+    private static $GET_CLAN_ALLY_TERRITORY = 'SELECT id, name, lastOwnedTime, siegeDate, clan_clan.clan_id, clan_clan.clan_name, clan_clan.leader_id AS clan_leader_id, clan_char.char_name AS clan_leader_name, ally_clan.clan_id AS ally_id, clan_clan.ally_name, ally_clan.leader_id AS ally_leader_id, ally_char.char_name AS ally_leader_name, ownedWardIds AS wards FROM fort LEFT JOIN clan_data clan_clan ON clan_clan.clan_id = fort.owner LEFT JOIN clan_data ally_clan ON ally_clan.clan_id=clan_clan.ally_id LEFT JOIN characters clan_char ON clan_char.charId=clan_clan.leader_id LEFT JOIN characters ally_char ON ally_clan.leader_id=ally_char.charId JOIN territories ON fort.id=territories.fortId ORDER BY fort.id ASC;';
 
     static function get($id) {
         global $sql;
@@ -170,11 +170,21 @@ class FortSiegeMySQLImpl implements iFortSiege {
 
 }
 
-class TerritoryMySQLImpl implements iTerritory {
+class TerritoryWarMySQLImpl implements iTerritoryWar {
 
-    private static $FORT_WARDS = 'SELECT ownedWardIds FROM territories WHERE fortId=?';
-    private static $CASTLE_WARDS = 'SELECT ownedWardIds FROM territories WHERE castleId=?';
+    private static $GET_FORT_WARDS = 'SELECT ownedWardIds FROM territories WHERE fortId=?';
+    private static $GET_CASTLE_WARDS = 'SELECT ownedWardIds FROM territories WHERE castleId=?';
 
+    static function getFortWards($sId, $id) {
+        global $sql;
+        $r = $sql[$sId]->query(TerritoryWarMySQLImpl::$GET_FORT_WARDS, [$id], __METHOD__);
+        return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : false;
+    }
+	static function getCastleWards($sId, $id) {
+        global $sql;
+        $r = $sql[$sId]->query(TerritoryWarMySQLImpl::$GET_CASTLE_WARDS, [$id], __METHOD__);
+        return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : false;
+    }
 }
 
 

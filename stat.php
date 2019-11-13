@@ -57,7 +57,8 @@ if (html::check($page, $pars)) {
         case 'castles':
             $r = 0;
             $content .= '<table class="forts">';
-            $res = Conf::get('web', 'teritory_war') ? DAO::get()::Castle()::getClanAllyTerritory($sId) : DAO::get()::Castle()::getClanAlly($sId);
+			$territory_war_enabled=Conf::get('web', 'teritory_war');
+            $res = $territory_war_enabled ? DAO::get()::Castle()::getClanAllyTerritory($sId) : DAO::get()::Castle()::getClanAlly($sId);
             foreach ($res as $row) {
                 $rowparse = $row;
                 $rowparse['tr1'] = ($r === 0) ? '<tr>' : '';
@@ -66,7 +67,7 @@ if (html::check($page, $pars)) {
                 $rowparse['castle_of_name'] = sprintf($Lang['__castle-of_'], $rowparse['castle_name'], '%s');
 
                 $rowparse['ward_imgs'] = '';
-                if (Conf::get('web', 'teritory_war')) {
+                if ($territory_war_enabled) {
 
                     $ter_res = $row['wards'];
                     if ($ter_res != '') {
@@ -121,19 +122,16 @@ if (html::check($page, $pars)) {
         case 'fort':
             $r = 0;
             $content .= '<table class="forts">';
-            $res = Conf::get('web', 'teritory_war') ? DAO::get()::Fort()::ClanAllyTerritory($sId) : DAO::get()::Fort()::ClanAlly($sId);
-            foreach ($sql[$sId]->query('FORT_INFO') as $row) {
-
-                //unset($rowparse);
-
+			$territory_war_enabled=Conf::get('web', 'teritory_war');
+            $res = $territory_war_enabled ? DAO::get()::Fort()::getClanAllyTerritory($sId) : DAO::get()::Fort()::getClanAlly($sId);
+            foreach ($res as $row) {
+				$rowparse=$row;
                 $rowparse['tr1'] = ($r == 0) ? '<tr>' : '';
                 $r++;
                 $rowparse['fort_of_name'] = sprintf($Lang['__fort-of_'], $row['name'], '%s');
                 $rowparse['ward_imgs'] = '';
-                if (Conf::get('web', 'teritory_war')) {
-                    $ter = $sql[$sId]->query('FORT_WARDS', [':id' => $row['id']]);
-
-                    $ter_res = ($ter->rowCount()) ? $ter->fetchColumn() : '';
+                if ($territory_war_enabled) {
+                    $ter_res = $row['wards'];
                     if ($ter_res != '') {
                         $wards = explode(';', $ter_res);
                         foreach ($wards as $ward) {
@@ -148,10 +146,43 @@ if (html::check($page, $pars)) {
                 $rowparse['id'] = $row['id'];
 
                 $rowparse['fort_name'] = $row['name'];
-                $rowparse['owner_link'] = ($row['clan_id']) ? htmlLink('claninfo.php?clan=' . $row['clan_id'] . '&amp;server=' . $sId, $row['clan_name']) : $Lang['__no-owner_'];
-                $rowparse['lord_link'] = ($row['charId'] != '') ? htmlLink('user.php?cid=' . $row['charId'] . '&amp;server=' . $sId, $row['char_name']) : $Lang['__no-lord_'];
-                $rowparse['tax'] = $Lang['__tax_'];
+				
+				$rowparse['clan_link'] = ($row['clan_id']) ? htmlLink('clan.php?id=' . $row['clan_id'] . '&amp;server=' . $sId, $row['clan_name']) : $Lang['__no-owner_'];
+                $rowparse['clan_leader_link'] = ($row['clan_leader_id']) ? htmlLink('user.php?id=' . $row['clan_leader_id'] . '&amp;server=' . $sId, $row['clan_leader_name']) : $Lang['__no-lord_'];
+
+                $rowparse['ally_link'] = ($row['ally_id']) ? htmlLink('ally.php?id=' . $row['ally_id'] . '&amp;server=' . $sId, $row['ally_name']) : '';
+                $rowparse['ally_leader_link'] = ($row['ally_leader_id']) ? htmlLink('user.php?id=' . $row['ally_leader_id'] . '&amp;server=' . $sId, $row['ally_leader_name']) : '';
+
+				
+                //$rowparse['tax'] = $Lang['__tax_'];
                 //$rowparse['tax_percent']=$row['taxPercent'];
+				/*
+				
+				$rowparse['attackers_link'] = '';
+                $attackers = DAO::get()::CastleSiege()::get($sId, $row['id'], '1');
+                $s=1;
+                if ($attackers) {
+                    foreach ($attackers as $attacker) {
+                        $rowparse['attackers_link'] .= htmlLink('clan.php?id=' . $attacker['clan_id'] . '&amp;server=' . $sId, $attacker['clan_name']);
+                        $rowparse['attackers_link'] .=$s++%2==0?'<br />':' ';
+                    }
+                }
+                $rowparse['defenders_link'] = '';
+                $defenders = DAO::get()::CastleSiege()::get($sId, $row['id'], '0');
+                $s=1;
+                if ($defenders) {
+                    foreach ($defenders as $defender) {
+                        $rowparse['defenders_link'] .= htmlLink('clan.php?id=' . $defender['clan_id'], $defender['clan_name']);
+                        if($defender['castle_owner'])
+                        {
+                            $rowparse['defenders_link'] .=htmlImg('img/icons/accessory_crown_i00.png', $Lang['__castle-owner_'], 'icon16');
+                        }
+                        $rowparse['defenders_link'] .=$s++%2==0?'<br />':' ';
+                    }
+                } else {
+                    $rowparse['defenders_link'] .= $Lang['__npc_'];
+                }
+				*/
                 $rowparse['attackers'] = $Lang['__attackers_'];
                 $rowparse['attackers_link'] = '';
                 $rowparse['time_held'] = $Lang['__time-held_'];

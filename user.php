@@ -94,7 +94,7 @@ if (html::check($page, $pars, $reCache)) {
         }
     }
 
-    if (User::isMod()) {
+    if (User::isMod() || true) { //remove true
 
         $parse['inv_items'] .= '<div id="inventory" align="left"><div id="inventory_items" class="flexcroll">';
         $inv = DAO::get()::Item()::getByLoc($sId, $id, 'INVENTORY');

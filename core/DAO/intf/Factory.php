@@ -60,5 +60,5 @@ interface iFactory {
 
     static function Skills();
 
-    static function Territory();
+    static function TerritoryWar();
 }

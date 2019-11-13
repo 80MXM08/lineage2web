@@ -10,7 +10,7 @@ class MySQL implements iFactory {
 
     static $ACC, $ACC_DATA;
     static $BAN, $BLOCK, $CACHE, $CONFIG, $CONFIG_TYPES, $LANG, $LOG, $L2WGAMESERVER, $L2WHENNA, $L2WITEM, $L2WSKILLS, $MESSAGES, $NEWS;
-    static $AUGMENT, $CASTLE, $CASTLE_SIEGE, $CHAR, $CLAN, $FORT, $FORT_SIEGE, $ELEMENT, $HENNA, $ITEM, $SEVENSIGNS, $SKILLS, $TERRITORY;
+    static $AUGMENT, $CASTLE, $CASTLE_SIEGE, $CHAR, $CLAN, $FORT, $FORT_SIEGE, $ELEMENT, $HENNA, $ITEM, $SEVENSIGNS, $SKILLS, $TERRITORY_WAR;
 
     //region LS Tables
     static function Account() {
@@ -205,11 +205,11 @@ class MySQL implements iFactory {
         return MySQL::$SKILLS;
     }
 
-    static function Territory() {
-        if (MySQL::$TERRITORY == null) {
-            MySQL::$TERRITORY = new TerritoryMySQLImpl();
+    static function TerritoryWar() {
+        if (MySQL::$TERRITORY_WAR == null) {
+            MySQL::$TERRITORY_WAR = new TerritoryWarMySQLImpl();
         }
-        return MySQL::$TERRITORY;
+        return MySQL::$TERRITORY_WAR;
     }
 
 }
