@@ -36,6 +36,17 @@ class DB {
         }
     }
 
+    function bindParams($r, $data) {
+        if (isMultiArray($data)) {
+            foreach ($data as $a) {
+                $r->bindParam($a[0], $a[1], $a[2]);
+            }
+            $r->execute();
+        } else {
+            $r->execute($data);
+        }
+    }
+
     function query($qry, $data = null, $name = '') {
         global $Lang;
         if ($this->debug) {
@@ -44,18 +55,8 @@ class DB {
         }
         try {
             $r = $this->getPDO()->prepare($qry);
-
-            //$r->execute($array);
             if (is_array($data)) {
-                if (isMultiArray($data)) {
-                    foreach ($data as $a) {
-                        $r->bindParam($a[0], $a[1], $a[2]);
-                    }
-                    $r->execute();
-                } else {
-                    $r->execute($data);
-                }
-                //$r = (isMultiArray($data)) ? $this->advancedQuery($qry, $data) : $this->simpleQuery($qry, $data);
+                $this->bindParams($r, $data);
             } else {
                 $r->execute();
             }
@@ -68,51 +69,10 @@ class DB {
             $queryend = $querytime1[1] . substr($querytime1[0], 1);
             $time = bcsub($queryend, $querystart, 6);
             $this->addTime($time);
-            $this->addQuery(['name' => $name,
-                //'query' => $qry,
-                'time' => $time,
-                'rows' => $r->rowCount()]);
+            $this->addQuery(['name' => $name, 'time' => $time, 'rows' => $r->rowCount()]);
         }
         return $r;
     }
-
-    /*public function singleQuery($qry) {
-        global $Lang;
-        try {
-            $r = $this->getPDO()->prepare($qry);
-            $r->execute();
-        } catch (PDOException $ex) {
-            $this->err(sprintf($Lang['__mysql-error_'], $qry), $ex->getMessage());
-        }
-        return $r;
-    }
-
-    private function simpleQuery($qry, $array) {
-        global $Lang;
-        try {
-            $r = $this->getPDO()->prepare($qry);
-
-            $r->execute($array);
-        } catch (PDOException $ex) {
-            $this->err(sprintf($Lang['__mysql-error_'], $qry), $ex->getMessage());
-        }
-        return $r;
-    }
-
-    private function advancedQuery($qry, $array) {
-        global $Lang;
-        try {
-            $r = $this->getPDO()->prepare($qry);
-
-            foreach ($array as $a) {
-                $r->bindParam($a[0], $a[1], $a[2]);
-            }
-            $r->execute();
-        } catch (PDOException $ex) {
-            $this->err(sprintf($Lang['__mysql-error_'], $qry), $ex->getMessage());
-        }
-        return $r;
-    }*/
 
     function getPDO() {
         return $this->db;

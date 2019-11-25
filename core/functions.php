@@ -224,7 +224,7 @@ function menuButton($text) {
     }
 }
 
-function page($server, $page, $link, $count = 0) {
+function page($server, $link, $page, $count = 0) {
     global $Lang;
     $top = Conf::get('web', 'top');
     $content = null;
@@ -251,8 +251,8 @@ function page($server, $page, $link, $count = 0) {
         $content .= '<td><a href="' . $link . $server . $ps . 'page=1" title="' . $Lang['__first_'] . '"  class="btn"> &laquo; </a></td>';
     }
     if ($page > 1) {
-        $content .= '<td><a href="' . $link . $server . $ps . 'page="';
-        $content .= $page - 1;
+        $prev=$page-1;
+        $content .= '<td><a href="' . $link . $server . $ps . 'page='.$prev;
         $content .= '" title="' . $Lang['__prev_'] . '" class="btn"> &lt; </a></td>';
     }
     if ($page - 2 > 0) {
@@ -293,7 +293,7 @@ function page($server, $page, $link, $count = 0) {
 
         $content .= '<td><a href="' . $link . $server . $ps . 'page=';
         $content .= $totalpages;
-        $content .= '" title="' . $Lang['__next_'] . '" class="btn"> &raquo; </a></td>';
+        $content .= '" title="' . $Lang['__last_'] . '" class="btn"> &raquo; </a></td>';
     }
 
     $content .= '</tr></table> </div>';
@@ -316,17 +316,16 @@ function convertPic($id, $ext, $width, $height) {
         $height = floor($width / $ratio);
     }
 
-    switch ($type) {
-        case 1: //   gif -> jpg
+    if($type==1){ //   gif -> jpg
             $img_src = imagecreatefromgif($file_src);
-            break;
-        case 2: //   jpeg -> jpg
-            $img_src = imagecreatefromjpeg($file_src);
-            break;
-        case 3: //   png -> jpg
-            $img_src = imagecreatefrompng($file_src);
-            break;
     }
+        else if($type== 2){ //   jpeg -> jpg
+            $img_src = imagecreatefromjpeg($file_src);
+        }
+        else if($type==3){ //   png -> jpg
+            $img_src = imagecreatefrompng($file_src);
+        }
+    
     $img_dst = imagecreatetruecolor($width, $height); //  resample
     //$img_dst = imagecreate($width, $height);  //  resample
     imageantialias($img_dst, true);
@@ -382,4 +381,17 @@ function checkHack() {
 
         die("Attack detected! <br /><br /><b>Your attack was blocked:</b><br />" . USER_IP . " - " . USER_BROWSER);
     }
+}
+
+function clanLink($sId, $clanId, $clanName)
+{
+    return htmlLink('clan.php?id=' . $clanId . '&amp;server=' . $sId, $clanName);
+}
+function allyLink($sId, $allyId, $allyName)
+{
+    return htmlLink('ally.php?id=' . $allyId . '&amp;server=' . $sId, $allyName);
+}
+function charLink($sId, $charId, $charName)
+{
+    return htmlLink('user.php?id=' . $charId . '&amp;server=' . $sId, $charName);
 }

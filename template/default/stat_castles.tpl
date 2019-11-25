@@ -5,9 +5,9 @@
 <table class="fort_info">
 <tr style="background-color: #2391ab;"><td>{__castle_}</td><td>{__details_}</td></tr>
 <tr><td>[{__ally_}] {__owner-clan_}</td><td>
-[{ally_link}] {clan_link}</td></tr>
+{ally_link} {clan_link}</td></tr>
 <tr class="altRow"><td>[{__ally-leader_}] {__owner-clan-leader_}</td><td>
-[{ally_leader_link}] {clan_leader_link}</td></tr>
+{ally_leader_link} {clan_leader_link}</td></tr>
 <tr><td>{__tax_}</td><td>{taxPercent}%</td></tr>
 <tr class="altRow"><td>{__attackers_}</td><td>
 {attackers_link}

@@ -67,7 +67,6 @@ require_once ('class.cache.php');
 require_once ('class.block.php');
 require_once ('l2web.php');
 
-
 $sql = [];
 foreach ($CONFIG as $k => $c) {
     if (!is_array($c)) {
