@@ -36,7 +36,7 @@ $page = 'user';
 if (html::check($page, $pars, $reCache)) {
     $parse = $char;
     //$parse['main_sub'] = $char['base_class'] == $char['classid'] ? $Lang['__main-class_'] : $Lang['__sub-class_'];
-    $parse['main_sub'] = $Lang['__main_class_'];
+    $parse['main_sub'] = $Lang['__main-class_'];
     $parse['time'] = date('d.m.Y H:i:s');
     $parse['update_time'] = date('d.m.Y H:i:s', time() + 900);
     $parse['color'] = $char['sex'] == '0' ? '#8080FF' : '#FF8080';

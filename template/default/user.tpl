@@ -19,7 +19,7 @@
         </td>
         <td>
             <table border="1">
-                <tr><td>{__name_}:</td><td>{char_name}{main_sub}</td></tr>
+                <tr><td>{__name_}:</td><td>{char_name} {main_sub}</td></tr>
                 <tr><td>{__level_}:</td><td>{level}</td></tr>
                 <tr><td class="maxCp">{__cp_}:</td><td class="maxCp">{maxCp}</td></tr>
                 <tr><td class="maxHp">{__hp_}:</td><td class="maxHp">{maxHp}</td></tr>

@@ -92,10 +92,10 @@ $q = [
         //'CHAR_TOP_BY_ITEM_COUNT' => 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online,  count, base_class, clanid, clan_name FROM characters INNER JOIN items ON characters.charId=items.owner_id LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE items.item_id=\'{item}\' AND accesslevel=\'0\' ORDER BY count DESC LIMIT {limit}, {rows}',
         'GM_LIST' => 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, clanid, clan_name, base_class FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE accesslevel>\'0\' LIMIT :limit, :rows',
         217 => 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, base_class, clanid, clan_name FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE online!=\'0\' AND accesslevel=\'0\' ORDER BY exp DESC LIMIT {limit}, {rows}',
-        'CHAR_TOP_BY_EXP' => 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, base_class, clanid, clan_name FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE accesslevel=\'0\' ORDER BY exp DESC LIMIT {limit}, {rows}',
-        'SEARCH_CHARS' => "SELECT charId,char_name,account_name,level FROM characters WHERE char_name LIKE :name LIMIT 0, :limit",
+        //'CHAR_TOP_BY_EXP' => 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, base_class, clanid, clan_name FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE accesslevel=\'0\' ORDER BY exp DESC LIMIT {limit}, {rows}',
+        //'SEARCH_CHARS' => "SELECT charId,char_name,account_name,level FROM characters WHERE char_name LIKE :name LIMIT 0, :limit",
         'CHAR_ITEMS_BY_LOC' => "SELECT items.item_id, items.object_id, items.count, items.enchant_level, items.loc_data FROM items WHERE items.owner_id=:id AND items.loc=:loc ORDER BY items.loc_data",
-        'GET_ACC_CHARS' => 'SELECT charId, char_name FROM characters WHERE account_name=:login;',
+        //'GET_ACC_CHARS' => 'SELECT charId, char_name FROM characters WHERE account_name=:login;',
        ],
    ];
 

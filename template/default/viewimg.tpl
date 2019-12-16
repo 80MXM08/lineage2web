@@ -2,12 +2,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
- <title>View Image</title>
+ <title>{__view-image_}</title>
 <link rel="SHORTCUT ICON" href="favicon.ico" />
 
  <script type="text/javascript">
-   var arrTemp=self.location.href.split("&");
-   var picUrl = (arrTemp.length>0)?arrTemp[1]:"";
    var NS = (navigator.appName=="Netscape")?true:false;
 
      function FitPic() {
@@ -21,10 +19,6 @@
  </script>
 </head>
 <body onload="FitPic();">
- <script type="text/javascript">
- <!--
- document.write( "<img src='news/" + picUrl + "' alt='' />" );
- // -->
- </script>
+ <img alt="" src="news/{image}" />
 </body>
 </html>

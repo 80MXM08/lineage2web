@@ -3,29 +3,23 @@
 define('L2WEB', true);
 require_once ('core/core.php');
 
-$stat = getString('stat');
-$start=isset($_GET['page'])?getInt('page'):1;
-
-if (!is_numeric($start) || $start == 0) {
-    $start = 1;
+$stat = filter_input(INPUT_GET, 'stat');
+$stats = ['online', 'castles', 'forts', 'clantop', 'gm', 'count', 'top_pvp',
+    'top_pk', 'top', 'maxCp', 'maxHp', 'maxMp', 'human', 'elf', 'dark_elf',
+    'orc', 'dwarf', 'kamael', 'ertheia'];
+if (!in_array($stat, $stats)) {
+    $stat = 'home';
 }
-$start = abs($start) - 1;
+$start = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => array('default' => 1, 'min_range' => 1)]) - 1;
 $rowCount = Conf::get('web', 'top');
 $startLimit = $start * $rowCount;
-if ($stat == '' || $stat == 'home') {
-    $head = $Lang['__home_'];
-} else {
-    $head = isset($Lang['__head-' . $stat . '_']) ? $Lang['__head-' . $stat . '_'] : $Lang['__error_'];
-}
+$head = $stat == 'home' ? $Lang['__home_'] : $Lang['__head-' . $stat . '_'];
+
 head($head);
-$server = getInt('server');
+$server = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => array('default' => 1, 'min_range' => 1)]);
 $gmsr = getGSById($server);
 $sId = $gmsr['id'];
-
-$par['lang'] = User::getVar('lang');
-$par['stat'] = $stat != '' ? $stat : 'home';
-$par['page'] = $start + 1;
-$par['server'] = $sId;
+$par = ['lang' => User::getVar('lang'), 'stat' => $stat, 'page' => $start + 1, 'server' => $sId];
 $pars = implode(';', $par);
 $page = 'stat';
 
@@ -106,7 +100,7 @@ if (html::check($page, $pars)) {
             $content .= tpl::parse('stat_castles', $rowparse);
         }
         $content .= '</table>';
-    } else if ($stat == 'fort') {
+    } else if ($stat == 'forts') {
         $r = 0;
         $content .= '<table class="forts">';
         $territory_war_enabled = Conf::get('web', 'teritory_war');
@@ -136,7 +130,7 @@ if (html::check($page, $pars)) {
             $rowparse['clan_leader_link'] = ($row['clan_leader_id']) ? charLink($sId, $row['clan_leader_id'], $row['clan_leader_name']) : $Lang['__no-lord_'];
             $rowparse['ally_link'] = ($row['ally_id']) ? '[' . allyLink($sId, $row['ally_id'], $row['ally_name']) . ']' : '';
             $rowparse['ally_leader_link'] = ($row['ally_leader_id']) ? '[' . charLink($sId, $row['ally_leader_id'], $row['ally_leader_name']) . ']' : '';
-            
+
             $rowparse['attackers_link'] = '';
             $attackers = DAO::get()::FortSiege()::getAttackingClanIdAndName($sId, $row['id']);
             $s = 1;
@@ -180,79 +174,79 @@ if (html::check($page, $pars)) {
         }
         $content .= tpl::parse('stat_clantop', $parse);
     } else if ($stat == 'gm') {
-        $res=DAO::get()::Char()::getGMLimited($sId, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getGMCount($sId);
+        $res = DAO::get()::Char()::getGMLimited($sId, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getGMCount($sId);
         $content .= '<h1>' . $Lang['__gm_'] . '</h1>';
     } else if ($stat == 'count') {
-        $statItem=Conf::get('web', 'stat_item_id');
-        $itemName=DAO::get()::L2WItem()::getItemName($statItem);
-        $res=DAO::get()::Char()::getRichLimited($sId, $statItem, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getRichCount($sId, $statItem);
+        $statItem = Conf::get('web', 'stat_item_id');
+        $itemName = DAO::get()::L2WItem()::getItemName($statItem);
+        $res = DAO::get()::Char()::getRichLimited($sId, $statItem, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getRichCount($sId, $statItem);
         $content .= '<h1>' . $Lang['__rich-players_'] . '</h1>';
         $addheader = '<td><b>' . $itemName . '</b></td>';
         $addcol = true;
     } else if ($stat == 'top_pvp') {
-        $stat2='pvpkills';
-        $res=DAO::get()::Char()::getTopByStatLimited($sId,$stat2, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getTopByStatCount($sId, $stat2);
+        $stat2 = 'pvpkills';
+        $res = DAO::get()::Char()::getTopByStatLimited($sId, $stat2, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getTopByStatCount($sId, $stat2);
         $content .= '<h1>' . $Lang['__pvp_'] . '</h1>';
     } else if ($stat == 'top_pk') {
-        $stat2='pkkills';
-        $res=DAO::get()::Char()::getTopByStatLimited($sId,$stat2, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getTopByStatCount($sId, $stat2);
+        $stat2 = 'pkkills';
+        $res = DAO::get()::Char()::getTopByStatLimited($sId, $stat2, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getTopByStatCount($sId, $stat2);
         $content .= '<h1>' . $Lang['__pk_'] . '</h1>';
     } else if ($stat == 'maxCp') {
-         $stat2='maxCp';
-        $res=DAO::get()::Char()::getTopByStatLimited($sId,$stat2, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getTopByStatCount($sId, $stat2);
+        $stat2 = 'maxCp';
+        $res = DAO::get()::Char()::getTopByStatLimited($sId, $stat2, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getTopByStatCount($sId, $stat2);
         $content .= '<h1>' . $Lang['__cp_'] . '</h1>';
         $addheader = '<td class="maxCp"><b>' . $Lang['__max-cp_'] . '</b></td>';
         $addcol = true;
     } else if ($stat == 'maxHp') {
-        $stat2='maxHp';
-        $res=DAO::get()::Char()::getTopByStatLimited($sId,$stat2, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getTopByStatCount($sId, $stat2);
+        $stat2 = 'maxHp';
+        $res = DAO::get()::Char()::getTopByStatLimited($sId, $stat2, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getTopByStatCount($sId, $stat2);
         $content .= '<h1>' . $Lang['__hp_'] . '</h1>';
         $addheader = '<td class="maxHp"><b>' . $Lang['__max-hp_'] . '</b></td>';
         $addcol = true;
     } else if ($stat == 'maxMp') {
-        $stat2='maxMp';
-        $res=DAO::get()::Char()::getTopByStatLimited($sId,$stat2, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getTopByStatCount($sId, $stat2);
+        $stat2 = 'maxMp';
+        $res = DAO::get()::Char()::getTopByStatLimited($sId, $stat2, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getTopByStatCount($sId, $stat2);
         $content .= '<h1>' . $Lang['__mp_'] . '</h1>';
         $addheader = '<td class="maxMp"><b>' . $Lang['__max-mp_'] . '</b></td>';
         $addcol = true;
     } else if ($stat == 'top') {
-        $stat2='exp';
-        $res=DAO::get()::Char()::getTopByStatLimited($sId,$stat2, $startLimit, $rowCount);
-        $pageFoot=DAO::get()::Char()::getTopByStatCount($sId, $stat2);
+        $stat2 = 'exp';
+        $res = DAO::get()::Char()::getTopByStatLimited($sId, $stat2, $startLimit, $rowCount);
+        $pageFoot = DAO::get()::Char()::getTopByStatCount($sId, $stat2);
         $content .= '<h1>' . $Lang['__top_'] . ' ' . $rowCount . '</h1>';
     } else if ($stat == 'human') {
-        $res=DAO::get()::Char()::getTopByRaceLimited($sId,0, $startLimit, $rowCount);
+        $res = DAO::get()::Char()::getTopByRaceLimited($sId, 0, $startLimit, $rowCount);
         $pageFoot = DAO::get()::Char()::getCountByRace($sId, 0);
         $content .= '<h1>' . $Lang['__race0_'] . '</h1>';
     } else if ($stat == 'elf') {
-        $res=DAO::get()::Char()::getTopByRaceLimited($sId,1, $startLimit, $rowCount);
+        $res = DAO::get()::Char()::getTopByRaceLimited($sId, 1, $startLimit, $rowCount);
         $pageFoot = DAO::get()::Char()::getCountByRace($sId, 1);
         $content .= '<h1>' . $Lang['__race1_'] . '</h1>';
     } else if ($stat == 'dark_elf') {
-        $res=DAO::get()::Char()::getTopByRaceLimited($sId,2, $startLimit, $rowCount);
+        $res = DAO::get()::Char()::getTopByRaceLimited($sId, 2, $startLimit, $rowCount);
         $pageFoot = DAO::get()::Char()::getCountByRace($sId, 2);
         $content .= '<h1>' . $Lang['__race2_'] . '</h1>';
     } else if ($stat == 'orc') {
-        $res=DAO::get()::Char()::getTopByRaceLimited($sId,3, $startLimit, $rowCount);
+        $res = DAO::get()::Char()::getTopByRaceLimited($sId, 3, $startLimit, $rowCount);
         $pageFoot = DAO::get()::Char()::getCountByRace($sId, 3);
         $content .= '<h1>' . $Lang['__race3_'] . '</h1>';
     } else if ($stat == 'dwarf') {
-        $res=DAO::get()::Char()::getTopByRaceLimited($sId,4, $startLimit, $rowCount);
+        $res = DAO::get()::Char()::getTopByRaceLimited($sId, 4, $startLimit, $rowCount);
         $pageFoot = DAO::get()::Char()::getCountByRace($sId, 4);
         $content .= '<h1>' . $Lang['__race4_'] . '</h1>';
     } else if ($stat == 'kamael') {
-        $res=DAO::get()::Char()::getTopByRaceLimited($sId,5, $startLimit, $rowCount);
+        $res = DAO::get()::Char()::getTopByRaceLimited($sId, 5, $startLimit, $rowCount);
         $pageFoot = DAO::get()::Char()::getCountByRace($sId, 5);
         $content .= '<h1>' . $Lang['__race5_'] . '</h1>';
     } else if ($stat == 'ertheia') {
-        $res=DAO::get()::Char()::getTopByRaceLimited($sId,6, $startLimit, $rowCount);
+        $res = DAO::get()::Char()::getTopByRaceLimited($sId, 6, $startLimit, $rowCount);
         $pageFoot = DAO::get()::Char()::getCountByRace($sId, 6);
         $content .= '<h1>' . $Lang['__race6_'] . '</h1>';
     } else {
@@ -341,12 +335,11 @@ if (html::check($page, $pars)) {
             $parse['char_rows'] .= '</tr>';
             $n++;
         }
-        $content .= tpl::parse('stat', $parse, 1);
+        $content .= tpl::parse('stat', $parse);
     }
 
     $content .= '<br />';
-    $no_foot = ['castles', 'fort', 'home'];
-    if ($stat && !in_array($stat, $no_foot)) {
+    if ($stat && !in_array($stat, ['castles', 'fort', 'home'])) {
 
         $content .= page($sId, 'stat.php?stat=' . $stat, $start + 1, $pageFoot);
     }

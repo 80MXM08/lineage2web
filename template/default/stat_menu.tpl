@@ -4,7 +4,7 @@
  | <a href="stat.php?stat=online{srv}">{__online_}</a> 
  | <a href="onlinemap.php?type=normal{srv}" target="_blank">{__map_}</a> 
  | <a href="stat.php?stat=castles{srv}">{__castles_}</a>
- | <a href="stat.php?stat=fort{srv}">{__fort_}</a> 
+ | <a href="stat.php?stat=forts{srv}">{__fort_}</a> 
  | <a href="stat.php?stat=clantop{srv}">{__head-clantop_}</a> |<br /><hr />
  | <a href="stat.php?stat=gm{srv}">{__gm_}</a>
  | <a href="stat.php?stat=count{srv}">{__rich-players_}</a> 

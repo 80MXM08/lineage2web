@@ -1,8 +1,10 @@
 <?php
+
 if (!defined('DAO')) {
     header('Location: index.php');
     die();
 }
+
 class L2WGameServerMySQLImpl implements iL2WGameServer {
 
     private static $GET = 'SELECT * FROM gameservers';
@@ -81,6 +83,7 @@ class L2WItemMySQLImpl implements iL2WItem {
     }
 
 }
+
 class L2WSkillsMySQLImpl implements iL2WSkills {
 
     private static $GET = 'SELECT * FROM skills_h5 WHERE id=? AND level=?';
@@ -222,19 +225,12 @@ class ConfigMySQLImpl implements iConfig {
 
     static function getTypes() {
         global $sql;
-        /* foreach ($sql['core']->query(ConfigMySQLImpl::$GET_TYPES, [], __METHOD__) as $r) {
-          Conf::addType($r['id'], $r['type']);
-          } */
-
         $r = $sql['core']->query(ConfigMySQLImpl::$GET_TYPES, [], __METHOD__);
         return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : false;
     }
 
     static function getAll() {
         global $sql;
-        /* foreach ($sql['core']->query(ConfigMySQLImpl::$GET_ALL, [], __METHOD__) as $r) {
-          Conf::add($r['type'], $r['name'], $r['value']);
-          } */
         $r = $sql['core']->query(ConfigMySQLImpl::$GET_ALL, [], __METHOD__);
         return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : false;
     }
@@ -255,23 +251,24 @@ class ConfigMySQLImpl implements iConfig {
     }
 
     static function set($type, $name, $val) {
-        $r = DAO::getInstance()::getConfig()::get($type, $name);
+        $r = DAO::get()::Config()::get($type, $name);
         if ($r->rowCount()) {
-            DAO::getInstance()::getConfig()::update($type, $name, $val);
+            DAO::get()::Config()::update($type, $name, $val);
         } else {
-            DAO::getInstance()::getConfig()::add($type, $name, $val);
+            DAO::get()::Config()::add($type, $name, $val);
         }
     }
 
 }
+
 class MessagesMySQLImpl implements iMessages {
 
-    static $GET_UNREAD = 'SELECT * FROM messages WHERE receiver=? AND unread=?';
-    static $GET_UNREAD_COUNT = 'SELECT count(*) as count FROM messages WHERE receiver=? AND unread=?';
-    static $GET_SENT = 'SELECT * FROM messages WHERE sender=?';
-    static $GET_SENT_COUNT = 'SELECT count(*) as count FROM messages WHERE sender=?';
-    static $GET_RECEIVED = 'SELECT * FROM messages WHERE receiver=?';
-    static $GET_RECEIVED_COUNT = 'SELECT count(*) as count FROM messages WHERE receiver=?';
+    static $GET_UNREAD = 'SELECT * FROM messages WHERE `to`=? AND unread=?';
+    static $GET_UNREAD_COUNT = 'SELECT count(*) as count FROM messages WHERE `to`=? AND unread=?';
+    static $GET_SENT = 'SELECT * FROM messages WHERE `from`=?';
+    static $GET_SENT_COUNT = 'SELECT count(*) as count FROM messages WHERE `from`=?';
+    static $GET_RECEIVED = 'SELECT * FROM messages WHERE `to`=?';
+    static $GET_RECEIVED_COUNT = 'SELECT count(*) as count FROM messages WHERE `to`=?';
 
     static function getUnread() {
         global $sql;
@@ -305,14 +302,13 @@ class MessagesMySQLImpl implements iMessages {
 
 }
 
-
 class NewsMySQLImpl implements iNews {
 
     static $GET_ALL = 'SELECT * FROM news ORDER BY date DESC LIMIT :limit';
     static $GET = 'SELECT * FROM news WHERE id=?';
     static $DELETE = 'DELETE FROM news WHERE id=?';
-    static $UPDATE = 'UPDATE news SET name=:name:, desc=:desc, editTime=?, editBy=? WHERE id=?';
-    static $ADD = 'INSERT INTO news (name, date, author, desc, image) VALUES (?, ?, ?, ?, ?)';
+    static $UPDATE = 'UPDATE news SET title=?, content=?, editBy=? WHERE id=?';
+    static $ADD = 'INSERT INTO news (title, date, author, content, image) VALUES (?, ?, ?, ?, ?)';
 
     static function getAll() {
         global $sql;
@@ -322,13 +318,26 @@ class NewsMySQLImpl implements iNews {
 
     static function get($id) {
         global $sql;
-        $r = $sql['core']->query(NewsMySQLImpl::$GET, $id, __METHOD__);
+        $r = $sql['core']->query(NewsMySQLImpl::$GET, [$id], __METHOD__);
         return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : false;
     }
 
+    static function add($title, $content, $image) {
+        global $sql;
+        return $sql['core']->query(NewsMySQLImpl::$ADD, [$title, date('Y-m-d H:i:s'), User::getUser(), $content, $image], __METHOD__)->rowCount();
+    }
+
+    static function update($id, $title, $content) {
+        global $sql;
+        return $sql['core']->query(NewsMySQLImpl::$UPDATE, [$title, $content, User::getUser(), $id], __METHOD__)->rowCount();
+    }
+    static function delete($id)
+    {
+         global $sql;
+        return $sql['core']->query(NewsMySQLImpl::$DELETE, [$id], __METHOD__)->rowCount();
+    
+    }
 }
-
-
 
 class LangMySQLImpl implements iLang {
 

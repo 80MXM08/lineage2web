@@ -85,7 +85,8 @@ Conf::init();
 tpl::setDir(User::getVar('theme'));
 
 if (Conf::get('security', 'ban_management')) {
-    if ($r = DAO::get()::Ban()::get(USER_IP)) {
+    $r = DAO::get()::Ban()::get(USER_IP);
+    if ($r) {
         if (time() > $r['to']) {
             DAO::get()::Ban()::delete(USER_IP);
         } else {

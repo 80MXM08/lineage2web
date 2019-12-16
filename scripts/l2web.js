@@ -70,7 +70,7 @@ function getElem(name)
 }
 function ViewPic(img)
 {
-    window.open("actions.php?a=viewimg&" + img, "", "resizable=0,HEIGHT=200,WIDTH=200");
+    window.open("actions.php?a=viewimg&img=" + img, "", "resizable=0,HEIGHT=200,WIDTH=200");
 }
 function GoTo(url)
 {

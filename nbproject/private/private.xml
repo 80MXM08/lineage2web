@@ -3,23 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/DAO/intf/L2Web.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/lang/en.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/stat.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/queries_mysql.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/css/l2web.css</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/DAO/impl/MySQL/L2GS.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/user.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/DAO/impl/MySQL/L2Web.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/blocks/login.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/l2web.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/template/default/blocks/login_logged.tpl</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/class.DB.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/DAO/intf/L2GS.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/themes/default/default.css</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/DAO/impl/MySQL.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/core/core.php</file>
-            <file>file:/C:/xampp/htdocs/lineage2web/scripts/l2web.js</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/actions.php</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/message.php</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/template/default/message.tpl</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/template/default/message_row.tpl</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/core/class.news.php</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/news.php</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/stat.php</file>
+            <file>file:/I:/xampp/htdocs/lineage2web/core/functions.php</file>
         </group>
     </open-files>
 </project-private>
